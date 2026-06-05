@@ -1,0 +1,91 @@
+---
+import SectionHead from './SectionHead.astro';
+import { projects, sectionIntros } from '../data/site';
+
+const pad = (n: number) => String(n + 1).padStart(2, '0');
+---
+<section class="section proj-section" id="projects" aria-labelledby="projects-h">
+  <div class="wrap">
+    <SectionHead index="03" id="projects-h" title="Projects" intro={sectionIntros.projects} />
+
+    <ul class="projs">
+      {projects.map((p, i) => (
+        <li class="proj reveal" style={`--reveal-delay: ${i * 80}ms`}>
+          <div class="proj__head">
+            <span class="proj__code mono">EXP-{pad(i)}</span>
+            <span class="proj__period coord">{p.period}</span>
+          </div>
+          <h3 class="proj__name">{p.name}</h3>
+          <p class="proj__note label">{p.note}</p>
+          <p class="proj__summary">{p.summary}</p>
+          <div class="proj__foot">
+            <ul class="proj__tags" aria-label="Tools and topics">
+              {p.tags.map((t) => <li class="chip">{t}</li>)}
+            </ul>
+            {p.link && (
+              <a class="proj__link mono" href={p.link.href} target="_blank" rel="noopener noreferrer">
+                {p.link.label}<span aria-hidden="true"> ↗</span>
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .projs {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: clamp(1rem, 2.5vw, 1.6rem);
+  }
+  .proj {
+    display: flex;
+    flex-direction: column;
+    background: var(--c-paper);
+    border: 1px solid var(--c-line-2);
+    border-radius: var(--r-md);
+    padding: var(--space-5);
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  }
+  /* corner fold accent */
+  .proj::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    border-width: 0 1.1rem 1.1rem 0;
+    border-style: solid;
+    border-color: var(--c-paper-3) var(--c-paper) var(--c-paper) var(--c-paper-3);
+    transition: border-color var(--dur-2) var(--ease-out);
+  }
+  .proj:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
+  .proj:hover::before { border-color: var(--c-rust) var(--c-paper) var(--c-paper) var(--c-rust); }
+
+  .proj__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-3);
+    border-bottom: 1px dashed var(--c-line-2);
+  }
+  .proj__code { font-size: var(--text-2xs); letter-spacing: 0.1em; color: var(--c-rust-deep); }
+  .proj__period { font-size: var(--text-2xs); color: var(--c-ink-3); }
+  .proj__name { font-size: var(--text-xl); font-variation-settings: 'opsz' 36; }
+  .proj__note { margin-top: 0.4rem; text-transform: none; letter-spacing: 0.02em; color: var(--c-ink-3); font-style: italic; }
+  .proj__summary { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--c-ink-2); flex: 1; }
+  .proj__foot { margin-top: var(--space-4); }
+  .proj__tags { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .proj__link {
+    font-size: var(--text-xs);
+    color: var(--c-blue-link);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--c-blue) 40%, transparent);
+  }
+  .proj__link:hover { color: var(--c-rust-deep); border-color: var(--c-rust-deep); }
+</style>

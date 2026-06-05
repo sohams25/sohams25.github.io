@@ -1,0 +1,105 @@
+/* =========================================================================
+   Field Notes — design tokens
+   A field-journal / mission-log system for an ML / computer-vision / robotics
+   portfolio. Warm paper, cool ink text, ink-blue lead accent, terracotta-rust
+   secondary. Deliberately not the LLM-default "beige + brass + espresso" — the
+   accent is a cool blue and the text is a cool near-black, so the page reads
+   like a blueprint field journal, not artisan packaging.
+   ========================================================================= */
+
+:root {
+  /* ---- Color: surfaces (warm paper) ---- */
+  --c-paper:        #f2ecde;   /* base sheet                     */
+  --c-paper-2:      #eae1cd;   /* raised panel / card / hover    */
+  --c-paper-3:      #e3d8c0;   /* deeper band / footer           */
+  --c-paper-edge:   #faf6ec;   /* highlight edge on raised cards */
+
+  /* ---- Color: ink (cool, not espresso) ---- */
+  --c-ink:          #15171b;   /* primary text   ~15.9:1 on paper */
+  --c-ink-2:        #3a3f47;   /* secondary text ~ 8.4:1 on paper */
+  --c-ink-3:        #4a5159;   /* meta / labels  ~ 6.6:1 on paper (AA) */
+
+  /* ---- Color: hairlines ---- */
+  --c-line:         #d4c8ad;   /* faint rule       */
+  --c-line-2:       #c0b08f;   /* stronger rule    */
+  --c-grid:         #1c6dd01a; /* contour/grid ink (blue @ ~10%) */
+
+  /* ---- Color: accents ---- */
+  --c-blue:         #1772d0;   /* brand ink-blue — accents, marks, underlines */
+  --c-blue-link:    #134e96;   /* deep blue for body links (AA 5.6:1 on paper) */
+  --c-blue-wash:    #1772d014; /* faint blue fill */
+  --c-rust:         #c2552e;   /* terracotta-rust secondary */
+  --c-rust-deep:    #9e3f1f;   /* rust for link hover / AA text */
+  --c-rust-wash:    #c2552e14;
+
+  /* ---- Color: states ---- */
+  --c-focus:        #1772d0;
+  --c-good:         #3f7d3a;
+
+  /* ---- Typography ---- */
+  --font-display: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body:    'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono:    'Space Mono', ui-monospace, 'SFMono-Regular', 'JetBrains Mono', 'Menlo', monospace;
+
+  /* Fluid type scale (min 360px → max 1240px). */
+  --text-2xs:  0.6875rem;                              /* 11px mono labels   */
+  --text-xs:   0.75rem;                                /* 12px mono meta     */
+  --text-sm:   0.8125rem;                              /* 13px               */
+  --text-base: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);   /* body 17→19 */
+  --text-lg:   clamp(1.25rem, 1.16rem + 0.4vw, 1.5rem);
+  --text-xl:   clamp(1.5rem, 1.32rem + 0.8vw, 2.0rem);
+  --text-2xl:  clamp(2.0rem, 1.6rem + 1.7vw, 3.0rem);
+  --text-3xl:  clamp(2.6rem, 1.9rem + 3.0vw, 4.5rem);
+  --text-hero: clamp(3.0rem, 1.9rem + 4.9vw, 6.25rem);
+
+  --leading-tight: 1.04;
+  --leading-snug:  1.22;
+  --leading-body:  1.62;
+  --tracking-mono: 0.04em;
+  --tracking-label: 0.16em;
+
+  /* ---- Spacing scale (4px base, fluid section gaps) ---- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.5rem;
+  --space-6:  2rem;
+  --space-7:  3rem;
+  --space-8:  4rem;
+  --space-section: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+
+  /* ---- Layout ---- */
+  --measure: 64ch;             /* body reading width */
+  --content-max: 78rem;        /* page container     */
+  --rule-w: 1px;
+
+  /* ---- Radius — documented tier system (taste-skill shape-consistency lock):
+     containers/cards use --r-md, inner markers/inputs/thumbs use --r-sm,
+     interactive pills use --r-pill. Followed everywhere. ---- */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-pill: 999px;
+
+  /* ---- Elevation (tinted warm, never pure black) ---- */
+  --shadow-1: 0 1px 0 var(--c-paper-edge), 0 1px 2px rgba(58, 44, 22, 0.10);
+  --shadow-2: 0 1px 0 var(--c-paper-edge), 0 8px 24px -10px rgba(58, 44, 22, 0.28);
+  --shadow-pop: 0 18px 50px -16px rgba(34, 30, 22, 0.42);
+
+  /* ---- Motion ---- */
+  --dur-1: 140ms;
+  --dur-2: 240ms;
+  --dur-3: 520ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---- Z ---- */
+  --z-bg: 0;
+  --z-content: 1;
+  --z-nav: 40;
+  --z-radio: 60;
+  --z-radio-panel: 70;
+
+  color-scheme: light;
+}

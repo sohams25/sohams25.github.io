@@ -1,0 +1,76 @@
+---
+import SectionHead from './SectionHead.astro';
+import { profile, sectionIntros } from '../data/site';
+---
+<section class="section contact-section" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <SectionHead index="04" id="contact-h" title="Contact" />
+
+    <div class="contact reveal">
+      <p class="contact__intro">{sectionIntros.contact}</p>
+
+      <a class="contact__email" href={`mailto:${profile.email}`}>
+        {profile.email}<span class="contact__arrow" aria-hidden="true">→</span>
+      </a>
+
+      <div class="contact__row">
+        <a href={profile.links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span class="contact__sep" aria-hidden="true">/</span>
+        <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="contact__sep" aria-hidden="true">/</span>
+        <a href={profile.links.cv} target="_blank" rel="noopener noreferrer">CV ↗</a>
+      </div>
+
+      <p class="contact__sign">{sectionIntros.contactSignoff}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact { max-width: 52rem; }
+  .contact__intro {
+    font-size: var(--text-lg);
+    line-height: 1.45;
+    color: var(--c-ink-2);
+    max-width: 48ch;
+  }
+  .contact__email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--space-5);
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-variation-settings: 'opsz' 40;
+    letter-spacing: -0.01em;
+    color: var(--c-ink);
+    text-decoration: none;
+    border-bottom: 2px solid color-mix(in srgb, var(--c-blue) 45%, transparent);
+    padding-bottom: 0.1rem;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+    word-break: break-word;
+  }
+  .contact__email:hover { color: var(--c-blue-link); border-color: var(--c-blue); }
+  .contact__arrow { transition: transform var(--dur-2) var(--ease-out); }
+  .contact__email:hover .contact__arrow { transform: translateX(4px); }
+
+  .contact__row {
+    margin-top: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+  .contact__row a { color: var(--c-ink-2); text-decoration: none; border-bottom: 1px solid var(--c-line-2); }
+  .contact__row a:hover { color: var(--c-blue-link); border-color: var(--c-blue); }
+  .contact__sep { color: var(--c-line-2); }
+
+  .contact__sign {
+    margin-top: var(--space-6);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--text-lg);
+    color: var(--c-rust-deep);
+  }
+</style>

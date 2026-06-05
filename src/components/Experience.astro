@@ -1,0 +1,117 @@
+---
+import SectionHead from './SectionHead.astro';
+import { experience, sectionIntros } from '../data/site';
+---
+<section class="section exp-section" id="experience" aria-labelledby="experience-h">
+  <div class="wrap">
+    <SectionHead index="01" id="experience-h" title="Experience" intro={sectionIntros.experience} />
+
+    <ol class="exp">
+      {experience.map((e, i) => (
+        <li class="exp__item reveal" style={`--reveal-delay: ${i * 70}ms`}>
+          <div class="exp__rail">
+            <span class="exp__chip">
+              <img src={e.logo} alt={e.logoAlt} width="48" height="48" loading="lazy" decoding="async" />
+            </span>
+          </div>
+          <div class="exp__body">
+            <div class="exp__top">
+              <h3 class="exp__role">
+                {e.role}
+                <span class="exp__org">
+                  {' · '}
+                  {e.url ? <a href={e.url} target="_blank" rel="noopener noreferrer">{e.org}</a> : e.org}
+                </span>
+              </h3>
+              <span class="exp__period coord">{e.period}</span>
+            </div>
+            <p class="exp__summary">{e.summary}</p>
+            <ul class="exp__tags" aria-label="Tools and topics">
+              {e.tags.map((t) => <li class="chip">{t}</li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .exp { list-style: none; margin: 0; padding: 0; }
+  .exp__item {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding-bottom: var(--space-7);
+    position: relative;
+  }
+  .exp__item:last-child { padding-bottom: 0; }
+  /* route line through the marker column */
+  .exp__rail { position: relative; display: flex; justify-content: center; }
+  .exp__item:not(:last-child) .exp__rail::after {
+    content: '';
+    position: absolute;
+    top: 3.4rem; bottom: -1.2rem;
+    left: 50%;
+    width: 1px;
+    background: repeating-linear-gradient(var(--c-line-2) 0 4px, transparent 4px 9px);
+  }
+  .exp__chip {
+    width: 3.25rem; height: 3.25rem;
+    display: grid; place-items: center;
+    background: var(--c-paper-edge);
+    border: 1px solid var(--c-line-2);
+    border-radius: var(--r-sm);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+  }
+  .exp__chip img { width: 78%; height: 78%; object-fit: contain; }
+
+  .exp__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+  }
+  .exp__role { font-size: var(--text-lg); }
+  .exp__org { font-weight: 400; color: var(--c-ink-2); }
+  .exp__org a { color: var(--c-blue-link); }
+  .exp__period {
+    flex: none;
+    font-size: var(--text-xs);
+    color: var(--c-ink-3);
+    white-space: nowrap;
+  }
+  .exp__summary {
+    margin-top: var(--space-3);
+    color: var(--c-ink-2);
+    max-width: 64ch;
+  }
+  .exp__tags {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  :global(.chip) {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.02em;
+    color: var(--c-ink-2);
+    padding: 0.22rem 0.55rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-pill);
+    background: var(--c-paper);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 40rem) {
+    .exp__item { grid-template-columns: 2.75rem 1fr; gap: var(--space-3); }
+    .exp__chip { width: 2.5rem; height: 2.5rem; }
+    .exp__item:not(:last-child) .exp__rail::after { top: 2.7rem; }
+  }
+</style>

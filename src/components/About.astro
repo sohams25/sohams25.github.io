@@ -1,0 +1,100 @@
+---
+import { about, education, interests } from '../data/site';
+---
+<section class="about section" aria-labelledby="about-h" id="about">
+  <div class="wrap about__grid">
+    <div class="about__body reveal">
+      <h2 id="about-h" class="about__kicker mono">// field notes</h2>
+      <p class="about__lede">{about.para1}</p>
+      <p class="about__p">{about.para2}</p>
+      <p class="about__p">{about.para3}</p>
+    </div>
+
+    <aside class="about__aside reveal" style="--reveal-delay: 120ms" aria-label="Quick facts">
+      <span class="about__pin" aria-hidden="true"></span>
+      <dl class="about__notes">
+        <div>
+          <dt class="label">Education</dt>
+          <dd>
+            {education.degree},
+            <a href={education.schoolUrl} target="_blank" rel="noopener noreferrer">{education.school}</a>.
+            <span class="about__muted">{education.year}.</span>
+          </dd>
+        </div>
+        <div>
+          <dt class="label">Off the clock</dt>
+          <dd>
+            <ul class="about__list">
+              {interests.map((i) => <li>{i}</li>)}
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .about__kicker {
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+    color: var(--c-blue-link);
+    margin-bottom: var(--space-5);
+    font-weight: 400;
+  }
+  .about__lede {
+    font-size: var(--text-lg);
+    line-height: 1.5;
+    color: var(--c-ink);
+    max-width: 60ch;
+  }
+  .about__p {
+    margin-top: var(--space-5);
+    color: var(--c-ink-2);
+    max-width: 62ch;
+  }
+
+  .about__aside {
+    position: relative;
+    background: var(--c-paper-2);
+    border: 1px solid var(--c-line-2);
+    border-radius: var(--r-sm);
+    padding: var(--space-5) var(--space-5) var(--space-4);
+    box-shadow: var(--shadow-1);
+    rotate: -1deg;
+    position: sticky;
+    top: 5.5rem;
+  }
+  .about__pin {
+    position: absolute;
+    top: -7px; left: 50%;
+    width: 12px; height: 12px;
+    margin-left: -6px;
+    border-radius: 50%;
+    background: var(--c-rust);
+    box-shadow: 0 2px 4px rgba(58,44,22,0.4);
+  }
+  .about__notes { display: grid; gap: var(--space-5); margin: 0; }
+  .about__notes dt { margin-bottom: 0.4rem; }
+  .about__notes dd { margin: 0; font-size: var(--text-sm); line-height: 1.5; color: var(--c-ink-2); }
+  .about__muted { color: var(--c-ink-3); }
+  .about__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+  .about__list li { position: relative; padding-left: 1rem; }
+  .about__list li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--c-rust);
+    font-family: var(--font-mono);
+  }
+
+  @media (max-width: 48rem) {
+    .about__grid { grid-template-columns: 1fr; }
+    .about__aside { position: static; rotate: 0deg; max-width: 28rem; }
+  }
+</style>

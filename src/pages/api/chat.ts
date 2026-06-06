@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { SYSTEM_PROMPT } from '../../lib/chat-knowledge';
+import { sanitizeMessages } from '../../lib/sanitize';
 
 // On-demand serverless function (holds GROQ_API_KEY). Everything else is static.
 export const prerender = false;
@@ -7,8 +8,6 @@ export const prerender = false;
 /* ---- config ---- */
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const DEFAULT_MODEL = 'llama-3.3-70b-versatile';
-const MAX_CHARS = 500; // per user message
-const MAX_HISTORY = 8; // messages kept from the client
 const MAX_TOKENS = 320;
 
 // Best-effort in-memory rate limit (per warm instance). Not a substitute for an
@@ -41,27 +40,6 @@ function json(body: unknown, status = 200): Response {
   });
 }
 
-type Role = 'user' | 'assistant';
-interface ChatMessage { role: Role; content: string; }
-
-function sanitize(raw: unknown): ChatMessage[] {
-  if (!Array.isArray(raw)) return [];
-  const out: ChatMessage[] = [];
-  for (const m of raw) {
-    if (!m || typeof m !== 'object') continue;
-    const role = (m as Record<string, unknown>).role;
-    const content = (m as Record<string, unknown>).content;
-    if ((role !== 'user' && role !== 'assistant') || typeof content !== 'string') continue;
-    const trimmed = content.replace(/\s+/g, ' ').trim().slice(0, MAX_CHARS);
-    if (!trimmed) continue;
-    out.push({ role, content: trimmed });
-  }
-  // keep only the tail, and require the last turn to be the user's
-  const tail = out.slice(-MAX_HISTORY);
-  while (tail.length && tail[tail.length - 1].role !== 'user') tail.pop();
-  return tail;
-}
-
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   const apiKey = process.env.GROQ_API_KEY ?? import.meta.env.GROQ_API_KEY;
   if (!apiKey) {
@@ -85,7 +63,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return json({ error: 'bad_json', reply: null }, 400);
   }
 
-  const history = sanitize((payload as Record<string, unknown>)?.messages);
+  const history = sanitizeMessages((payload as Record<string, unknown>)?.messages);
   if (history.length === 0) {
     return json({ error: 'empty', reply: null }, 400);
   }

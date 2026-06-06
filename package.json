@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -21,6 +23,8 @@
     "@astrojs/check": "^0.9.9",
     "@fontsource-variable/newsreader": "^5.2.6",
     "@fontsource/space-mono": "^5.2.6",
-    "typescript": "^5.9.2"
+    "@resvg/resvg-js": "^2.6.2",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.8"
   }
 }

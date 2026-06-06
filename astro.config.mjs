@@ -10,7 +10,9 @@ export default defineConfig({
   site: 'https://sohamshinde.com',
   output: 'static',
   adapter: vercel({
-    webAnalytics: { enabled: false },
+    // Privacy-friendly, async, no cookie banner. Enable Web Analytics in the
+    // Vercel dashboard for the project to start collecting.
+    webAnalytics: { enabled: true },
   }),
   integrations: [sitemap()],
   trailingSlash: 'ignore',

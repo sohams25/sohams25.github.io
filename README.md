@@ -20,6 +20,14 @@ npm install
 npm run dev        # http://localhost:4321
 npm run build      # static build + the serverless function
 npm run check      # astro + TypeScript diagnostics
+npm test           # vitest unit tests (chat input sanitizer)
+```
+
+Regenerate the social card and app icons after a brand change:
+
+```bash
+node scripts/gen-og.mjs      # public/og.png
+node scripts/gen-icons.mjs   # public/icon-*.png, apple-touch-icon.png
 ```
 
 ## The field-radio chat
@@ -45,7 +53,9 @@ The Vercel adapter is already wired in `astro.config.mjs`.
 3. Add the custom domain `sohamshinde.com` under Settings → Domains and point the
    registrar's records as Vercel instructs.
 
-Security headers (CSP and friends) ship via `vercel.json`.
+Security headers (CSP and friends) ship via `vercel.json`. Web Analytics is wired
+in the adapter — turn it on under the project's Analytics tab (privacy-friendly,
+no cookie banner).
 
 ## Where things live
 

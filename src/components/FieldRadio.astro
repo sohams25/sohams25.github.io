@@ -141,6 +141,10 @@ import { fieldRadio } from '../data/chatbot';
   }
 
   /* ---- panel ---- */
+  /* `.fr-panel` sets display:flex, which would override the UA [hidden] rule and
+     leave the panel always visible. Re-assert hiding for the hidden state so the
+     close button, Escape, and initial state work. */
+  .fr-panel[hidden] { display: none; }
   .fr-panel {
     position: absolute;
     right: 0;

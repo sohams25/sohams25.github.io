@@ -88,4 +88,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
     border-bottom: 1px solid color-mix(in srgb, var(--c-blue) 40%, transparent);
   }
   .proj__link:hover { color: var(--c-rust-deep); border-color: var(--c-rust-deep); }
+  /* in dark, the flush card would merge with the base — lift it onto a surface */
+  :global(html[data-theme='dark']) .proj { background: var(--c-paper-2); border-color: var(--c-line); }
+  :global(html[data-theme='dark']) .proj::before { border-color: var(--c-paper-edge) var(--c-paper-2) var(--c-paper-2) var(--c-paper-edge); }
 </style>

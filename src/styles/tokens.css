@@ -114,31 +114,35 @@
    surfaces.
    ========================================================================= */
 :root[data-theme='dark'] {
-  --c-paper:        #181611;   /* warm near-black "night paper" */
-  --c-paper-2:      #211e16;
-  --c-paper-3:      #121009;
-  --c-paper-edge:   #2a261b;
+  /* warm, layered "campfire ledger". Clear value steps so cards lift on their
+     own (dark-on-dark shadows barely read), warm hue throughout, lamplight
+     amber as the lead accent. */
+  --c-paper:        #1b1712;   /* warm espresso-black base */
+  --c-paper-2:      #262019;   /* card surface — distinctly lighter + warmer */
+  --c-paper-3:      #15120d;   /* footer / deep band — darker than base */
+  --c-paper-edge:   #322a20;   /* raised edge / frame / chips */
 
-  --c-ink:          #ece3d0;   /* warm off-white  ~13:1 on paper */
-  --c-ink-2:        #c5bca7;   /* secondary       ~ 8:1 */
-  --c-ink-3:        #9b927e;   /* meta            ~ 5.1:1 (AA) */
+  --c-ink:          #efe6d4;   /* warm paper-white  ~14:1 on base */
+  --c-ink-2:        #cabfa9;   /* secondary         ~ 8:1 */
+  --c-ink-3:        #a0967f;   /* meta              ~ 5.6:1 (AA) */
 
-  --c-line:         #332e20;
-  --c-line-2:       #4a4430;
-  --c-grid:         #6ba8ee1a;
+  --c-line:         #3a3324;   /* warm hairline, reads on cards */
+  --c-line-2:       #4f4632;
+  --c-grid:         #e7cd9610; /* faint warm ledger grid (~6%) */
 
-  --c-blue:         #6ba8ee;   /* brighter for marks/icons on dark */
-  --c-blue-link:    #8ec1f5;   /* links on dark  ~9:1 */
-  --c-blue-wash:    #6ba8ee1f;
-  --c-rust:         #e08a4f;   /* warm amber-rust on dark */
-  --c-rust-deep:    #ec9a6b;   /* rust text/hover on dark ~7:1 */
-  --c-rust-wash:    #e08a4f1f;
+  --c-blue:         #79b0f0;   /* links / marks on dark */
+  --c-blue-link:    #93c2f5;   /* body links  ~9:1 */
+  --c-blue-wash:    #79b0f01f;
+  --c-rust:         #e2925a;   /* lamplight amber-rust — lead warm accent */
+  --c-rust-deep:    #eea878;   /* rust text / hover  ~8:1 */
+  --c-rust-wash:    #e2925a1f;
 
-  --c-focus:        #8ec1f5;
+  --c-focus:        #93c2f5;
 
-  --shadow-1: 0 1px 0 rgba(255, 247, 230, 0.04), 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-2: 0 1px 0 rgba(255, 247, 230, 0.04), 0 10px 28px -12px rgba(0, 0, 0, 0.72);
-  --shadow-pop: 0 22px 60px -18px rgba(0, 0, 0, 0.85);
+  /* inset top highlight = embossed-paper edge; deeper ambient drop below */
+  --shadow-1: inset 0 1px 0 rgba(255, 238, 210, 0.05), 0 1px 2px rgba(0, 0, 0, 0.55);
+  --shadow-2: inset 0 1px 0 rgba(255, 238, 210, 0.06), 0 14px 32px -14px rgba(0, 0, 0, 0.78);
+  --shadow-pop: 0 26px 66px -18px rgba(0, 0, 0, 0.86);
 
   color-scheme: dark;
 }

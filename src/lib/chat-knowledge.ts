@@ -35,7 +35,7 @@ GROUNDING RULES (do not break these)
 
 # Soham Shinde
 
-Machine Learning Engineer. Works across computer vision, 3D modeling, applied ML, HCI, and robotics.
+Machine Learning Engineer based in Bengaluru, India. Works across computer vision, 3D modeling, applied ML, HCI, and robotics.
 
 ## Current role
 Machine Learning Engineer, Clutterbot (May 2025 to present).

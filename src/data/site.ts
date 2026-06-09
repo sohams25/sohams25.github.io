@@ -46,9 +46,9 @@ export const profile = {
   tagline: 'I teach robots to see. Mostly they do.',
   statusNow:
     'At Clutterbot now, building the perception pipelines that tell indoor robots where things are.',
-  // Decorative field-log origin marker (BITS Goa campus) — used as a margin coordinate, not a residence claim.
-  originLabel: 'origin · BITS Goa',
-  coordinates: '15.39°N 73.88°E',
+  // Field-log marker for where he's based now (Bengaluru).
+  originLabel: 'based · Bengaluru',
+  coordinates: '12.97°N 77.59°E',
   photo: '/images/ProfilePhoto.jpeg',
   photoAlt: 'Soham Shinde',
   email: 'sohams.web@gmail.com',
@@ -65,7 +65,7 @@ export const about = {
   para2:
     "Before Clutterbot I spent most of my time in research labs, pointing models at images and asking what they understood. At NTU I built and benchmarked a Video Vision Transformer for classroom activity recognition. It hit 88% test accuracy on a 927-clip EduNet subset and 72% on an independent 100-video set, and the saliency maps showed it watching the right things: raised hands, writing on the board. I also worked on gaze estimation to derive student-engagement measures. At TCS Research I wrapped Segment Anything in a PyQt5 GUI for AI-assisted annotation and automated the stitching of segmented regions into larger sub-scenes. At CSIR-CEERI I restored deteriorated Rajasthani murals with U-Net++, DeepLabV3+, and a few others, reaching SSIM 0.9812 on the inpainting pipeline. The same thread runs through all of it: computer vision, 3D modeling, applied ML, some HCI, and robotics.",
   para3:
-    'I studied Electronics & Communication Engineering with a minor in Data Science at BITS Pilani Goa. There I wrote autonomous navigation for Project Kratos, our student-built Mars rover prototype, and ran events as Initiatives Head at the Center for Technical Education. Off the keyboard I brew Blue Tokai in a French press, boulder, and trek in the Himalayas. Same loop as debugging: find the next hold, commit, sometimes fall.',
+    'I studied Electronics & Communication Engineering with a minor in Data Science at BITS Pilani Goa. There I wrote autonomous navigation for Project Kratos, our student-built Mars rover prototype. Off the keyboard I brew Blue Tokai in a French press, boulder, and trek in the Himalayas. Same loop as debugging: find the next hold, commit, sometimes fall.',
 } as const;
 
 export const sectionIntros = {
@@ -183,7 +183,6 @@ export const interests = [
   'Blue Tokai in a French press',
   'Bouldering',
   'Treks in the Himalayas',
-  'Events & Initiatives Head, CTE BITS Goa',
 ] as const;
 
 export const orgs = [

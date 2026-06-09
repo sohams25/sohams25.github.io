@@ -36,7 +36,21 @@ const personLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <script is:inline>document.documentElement.classList.replace('no-js', 'js');</script>
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        try {
+          var t = localStorage.getItem('theme');
+          if (t !== 'light' && t !== 'dark') {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          d.dataset.theme = t;
+        } catch (e) {
+          d.dataset.theme = 'light';
+        }
+        d.classList.replace('no-js', 'js');
+      })();
+    </script>
 
     <title>{title}</title>
     <meta name="description" content={description} />

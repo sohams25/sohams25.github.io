@@ -1,5 +1,6 @@
 ---
 import { profile } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
 
 const links = [
   { label: 'Experience', href: '#experience' },
@@ -29,6 +30,7 @@ const links = [
           CV<span aria-hidden="true"> ↗</span>
         </a>
       </li>
+      <li class="site-nav__toggle"><ThemeToggle /></li>
     </ul>
   </nav>
 </header>

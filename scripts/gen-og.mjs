@@ -56,7 +56,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   </g>
 
   <text x="138" y="112" font-family="Space Mono" font-size="22" letter-spacing="4" fill="${C.ink3}">FIELD LOG</text>
-  <text x="1112" y="112" font-family="Space Mono" font-size="22" letter-spacing="2" fill="${C.blueInk}" text-anchor="end">15.39°N 73.88°E</text>
+  <text x="1112" y="112" font-family="Space Mono" font-size="22" letter-spacing="2" fill="${C.blueInk}" text-anchor="end">12.97°N 77.59°E</text>
 
   <text x="88" y="300" font-family="Space Mono" font-weight="700" font-size="92" letter-spacing="-2" fill="${C.ink}">Soham Shinde</text>
   <text x="90" y="372" font-family="Space Mono" font-size="34" fill="${C.ink2}">I teach robots to see. Mostly they do.</text>

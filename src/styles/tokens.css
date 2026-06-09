@@ -31,6 +31,8 @@
   --c-rust:         #c2552e;   /* terracotta-rust secondary */
   --c-rust-deep:    #9e3f1f;   /* rust for link hover / AA text */
   --c-rust-wash:    #c2552e14;
+  --c-fill-blue:    #1772d0;   /* saturated blue for white-icon fills (fixed both themes) */
+  --c-fill-blue-2:  #135aa8;   /* its hover */
 
   /* ---- Color: states ---- */
   --c-focus:        #1772d0;
@@ -102,4 +104,41 @@
   --z-radio-panel: 70;
 
   color-scheme: light;
+}
+
+/* =========================================================================
+   Night field log — dark theme. Set via data-theme on <html> (an inline head
+   script picks localStorage or the OS preference before paint). Components read
+   the same tokens, so only these values change. --c-good / --c-fill-blue stay
+   fixed because they sit under white icons/text and stay legible on both
+   surfaces.
+   ========================================================================= */
+:root[data-theme='dark'] {
+  --c-paper:        #181611;   /* warm near-black "night paper" */
+  --c-paper-2:      #211e16;
+  --c-paper-3:      #121009;
+  --c-paper-edge:   #2a261b;
+
+  --c-ink:          #ece3d0;   /* warm off-white  ~13:1 on paper */
+  --c-ink-2:        #c5bca7;   /* secondary       ~ 8:1 */
+  --c-ink-3:        #9b927e;   /* meta            ~ 5.1:1 (AA) */
+
+  --c-line:         #332e20;
+  --c-line-2:       #4a4430;
+  --c-grid:         #6ba8ee1a;
+
+  --c-blue:         #6ba8ee;   /* brighter for marks/icons on dark */
+  --c-blue-link:    #8ec1f5;   /* links on dark  ~9:1 */
+  --c-blue-wash:    #6ba8ee1f;
+  --c-rust:         #e08a4f;   /* warm amber-rust on dark */
+  --c-rust-deep:    #ec9a6b;   /* rust text/hover on dark ~7:1 */
+  --c-rust-wash:    #e08a4f1f;
+
+  --c-focus:        #8ec1f5;
+
+  --shadow-1: 0 1px 0 rgba(255, 247, 230, 0.04), 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-2: 0 1px 0 rgba(255, 247, 230, 0.04), 0 10px 28px -12px rgba(0, 0, 0, 0.72);
+  --shadow-pop: 0 22px 60px -18px rgba(0, 0, 0, 0.85);
+
+  color-scheme: dark;
 }

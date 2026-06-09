@@ -49,6 +49,9 @@ const year = new Date().getFullYear();
     transition: opacity var(--dur-2) var(--ease-out), filter var(--dur-2) var(--ease-out);
   }
   .footer__orgs img:hover { opacity: 0.95; filter: grayscale(0); }
+  /* dark mode: invert so dark logos read on the dark footer */
+  :global(html[data-theme='dark']) .footer__orgs img { filter: grayscale(1) invert(0.92); opacity: 0.62; }
+  :global(html[data-theme='dark']) .footer__orgs img:hover { filter: grayscale(1) invert(0.92); opacity: 0.92; }
   .footer__rule { margin-block: var(--space-6); border-color: var(--c-line-2); }
   .footer__base {
     display: flex;

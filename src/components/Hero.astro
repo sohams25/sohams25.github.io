@@ -1,15 +1,10 @@
 ---
 import { profile } from '../data/site';
-import ContourBg from './ContourBg.astro';
 ---
 <section class="hero" id="top">
-  <ContourBg />
   <div class="wrap hero__grid">
     <div class="hero__lead">
-      <p class="hero__eyebrow mono">
-        <span class="hero__star" aria-hidden="true">✦</span>
-        Field log <span class="hero__coord">{profile.coordinates}</span>
-      </p>
+      <p class="hero__eyebrow mono">{profile.role} · {profile.location}</p>
 
       <h1 class="hero__name">{profile.name}</h1>
 
@@ -40,14 +35,10 @@ import ContourBg from './ContourBg.astro';
           fetchpriority="high"
           decoding="async"
         />
-        <span class="hero__tick hero__tick--tl" aria-hidden="true"></span>
-        <span class="hero__tick hero__tick--br" aria-hidden="true"></span>
       </div>
       <figcaption class="hero__cap">
-        <span class="hero__status">
-          <span class="hero__dot" aria-hidden="true"></span>
-          {profile.statusNow}
-        </span>
+        <span class="hero__now label">Now</span>
+        {profile.statusNow}
       </figcaption>
     </figure>
   </div>
@@ -55,15 +46,11 @@ import ContourBg from './ContourBg.astro';
 
 <style>
   .hero {
-    position: relative;
-    overflow: hidden;
     padding-top: clamp(2.5rem, 1.5rem + 5vw, 5rem);
     padding-bottom: var(--space-section);
     border-bottom: 1px solid var(--c-line);
   }
   .hero__grid {
-    position: relative;
-    z-index: var(--z-content);
     display: grid;
     grid-template-columns: 1.45fr 0.95fr;
     align-items: center;
@@ -71,16 +58,11 @@ import ContourBg from './ContourBg.astro';
   }
 
   .hero__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--c-ink-3);
   }
-  .hero__star { color: var(--c-rust); }
-  .hero__coord { color: var(--c-blue-link); font-variant-numeric: tabular-nums; }
 
   .hero__name {
     margin-top: var(--space-4);
@@ -123,84 +105,28 @@ import ContourBg from './ContourBg.astro';
   .hero__social a { color: var(--c-ink-2); text-decoration: none; border-bottom: 1px solid var(--c-line-2); }
   .hero__social a:hover { color: var(--c-blue-link); border-color: var(--c-blue); }
 
-  /* photo plate */
+  /* photo */
   .hero__plate { margin: 0; }
   .hero__frame {
-    position: relative;
-    padding: 0.6rem;
+    padding: 0.5rem;
     background: var(--c-paper-edge);
     border: 1px solid var(--c-line-2);
-    border-radius: var(--r-sm);
+    border-radius: var(--r-md);
     box-shadow: var(--shadow-2);
-    rotate: 1.4deg;
-    transition: rotate var(--dur-3) var(--ease-out), box-shadow var(--dur-3) var(--ease-out);
   }
-  .hero__frame:hover { rotate: 0deg; box-shadow: var(--shadow-pop); }
   .hero__frame img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: var(--r-xs);
-    filter: saturate(0.92) contrast(1.02);
+    border-radius: var(--r-sm);
   }
-  .hero__tick {
-    position: absolute;
-    width: 12px; height: 12px;
-    border: 1.5px solid var(--c-blue);
-  }
-  .hero__tick--tl { top: -4px; left: -4px; border-right: 0; border-bottom: 0; }
-  .hero__tick--br { bottom: -4px; right: -4px; border-left: 0; border-top: 0; }
-  .hero__cap { margin-top: var(--space-4); }
-  .hero__status {
-    display: flex;
-    gap: 0.55rem;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
+  .hero__cap {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
     line-height: 1.5;
     color: var(--c-ink-2);
   }
-  .hero__dot {
-    position: relative;
-    flex: none;
-    margin-top: 0.45em;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--c-good);
-  }
-  .hero__dot::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: var(--c-good);
-    animation: hero-ping 2.6s var(--ease-out) infinite;
-  }
-  /* compositor-only: animate transform + opacity, never box-shadow (avoids paint) */
-  @keyframes hero-ping {
-    0% { opacity: 0.5; transform: scale(1); }
-    70%, 100% { opacity: 0; transform: scale(2.6); }
-  }
-
-  /* shared button system */
-  :global(.btn) {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    letter-spacing: 0.02em;
-    padding: 0.62rem 1.1rem;
-    border-radius: var(--r-sm);
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: transform var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out),
-                border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
-  }
-  :global(.btn--primary) { background: var(--c-ink); color: var(--c-paper); }
-  :global(.btn--primary:hover) { background: var(--c-ink); color: var(--c-paper); transform: translateY(-1px); box-shadow: var(--shadow-2); }
-  :global(.btn--primary:active) { transform: translateY(0); }
-  :global(.btn--ghost) { color: var(--c-ink); border-color: var(--c-line-2); }
-  :global(.btn--ghost:hover) { border-color: var(--c-blue); color: var(--c-blue-link); transform: translateY(-1px); }
+  .hero__now { display: block; margin-bottom: 0.25rem; }
 
   /* entrance stagger */
   .hero__eyebrow, .hero__name, .hero__tagline, .hero__role, .hero__actions, .hero__plate {
@@ -222,7 +148,5 @@ import ContourBg from './ContourBg.astro';
   }
   @media (prefers-reduced-motion: reduce) {
     .hero__eyebrow, .hero__name, .hero__tagline, .hero__role, .hero__actions, .hero__plate { animation: none; }
-    .hero__frame { rotate: 0deg; }
-    .hero__dot::after { animation: none; }
   }
 </style>

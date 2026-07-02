@@ -1,7 +1,6 @@
 /* =========================================================================
    Site content — single source of truth for Soham Shinde's portfolio.
-   Prose was drafted then run through a stop-slop critic pass; every metric,
-   date, and institution here matches the CV. No invented facts.
+   Every metric, date, and institution here matches the CV. No invented facts.
    ========================================================================= */
 
 export interface Link {
@@ -45,10 +44,8 @@ export const profile = {
   roleLine: 'machine learning · computer vision · robotics',
   tagline: 'I teach robots to see. Mostly they do.',
   statusNow:
-    'At Clutterbot now, building the perception pipelines that tell indoor robots where things are.',
-  // Field-log marker for where he's based now (Bengaluru).
-  originLabel: 'based · Bengaluru',
-  coordinates: '12.97°N 77.59°E',
+    'At Clutterbot, building the perception pipelines that tell indoor robots where things are.',
+  location: 'Bengaluru, India',
   photo: '/images/ProfilePhoto.jpeg',
   photoAlt: 'Soham Shinde',
   email: 'sohams.web@gmail.com',
@@ -69,11 +66,10 @@ export const about = {
 } as const;
 
 export const sectionIntros = {
-  experience: "Where I've worked, in order: research labs, internships, and the robotics floor I'm on now.",
+  experience: 'Research labs, internships, and now a robotics startup. Newest first.',
   publications: 'Two papers on segmenting and restoring artwork and ancient wall paintings. One accepted, one under review.',
-  projects: 'What I build on weekends: point clouds, smart glasses, a Mars rover.',
+  projects: 'Point clouds, smart glasses, a Mars rover.',
   contact: "Email me at sohams.web@gmail.com. I'm also on GitHub and LinkedIn, and the CV has the long version.",
-  contactSignoff: 'Happy to compare notes. Trails out.',
 } as const;
 
 export const experience: Experience[] = [

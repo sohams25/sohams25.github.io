@@ -7,11 +7,9 @@
 
 export const fieldRadio = {
   panelTitle: 'Field radio',
-  introLine:
-    'Ask it anything. It answers in my voice, about the work, the papers, and how each one got built.',
   placeholder: 'Ask about the rover, ViViT, edge ML…',
   greeting:
-    "Soham here. Ask me about my work in computer vision, robotics, or the murals I helped restore, and I'll answer from the field notes.",
+    "Soham here. Ask me about my work — computer vision, robotics, the murals I helped restore. A model answers for me, from my notes.",
   suggestedQuestions: [
     'What do you do at Clutterbot?',
     'How did you speed up edge inference?',
@@ -19,7 +17,7 @@ export const fieldRadio = {
     "What do you do when you're not coding?",
   ],
   fallbackMessage:
-    'The radio dropped out on my end. Email me at sohams.web@gmail.com or look through my CV, and I will pick up the thread.',
+    "Something broke on my end. Email me at sohams.web@gmail.com and I'll answer properly.",
   endpoint: '/api/chat',
   maxChars: 500,
   maxHistory: 8,

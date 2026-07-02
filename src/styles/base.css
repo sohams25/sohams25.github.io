@@ -33,34 +33,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ruled-paper warmth: an almost-invisible blueprint grid behind everything */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-bg);
-  pointer-events: none;
-  background-image:
-    linear-gradient(var(--c-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
-  background-size: 2.25rem 2.25rem;
-  -webkit-mask-image: radial-gradient(ellipse 120% 90% at 50% 0%, #000 30%, transparent 78%);
-  mask-image: radial-gradient(ellipse 120% 90% at 50% 0%, #000 30%, transparent 78%);
-  opacity: 0.5;
-}
-
-/* dark-only paper grain — adds tactile warmth so the night theme reads as
-   aged paper rather than flat charcoal */
-:root[data-theme='dark'] body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-bg);
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 img,
 svg,
 video { display: block; max-width: 100%; height: auto; }
@@ -72,7 +44,7 @@ select { font: inherit; color: inherit; }
 
 button { background: none; border: none; cursor: pointer; }
 
-::selection { background: var(--c-rust-wash); color: var(--c-ink); }
+::selection { background: color-mix(in srgb, var(--c-blue) 24%, var(--c-paper)); color: var(--c-ink); }
 
 /* ---- typography ---- */
 h1, h2, h3, h4 {
@@ -103,8 +75,8 @@ a {
               text-decoration-color var(--dur-1) var(--ease-out);
 }
 a:hover {
-  color: var(--c-rust-deep);
-  text-decoration-color: var(--c-rust-deep);
+  color: var(--c-blue);
+  text-decoration-color: var(--c-blue);
 }
 
 /* ---- shared primitives ---- */
@@ -147,6 +119,27 @@ a:hover {
 }
 
 .measure { max-width: var(--measure); }
+
+/* button system (used by Hero, 404) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+  padding: 0.62rem 1.1rem;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out),
+              border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+}
+.btn--primary { background: var(--c-ink); color: var(--c-paper); }
+.btn--primary:hover { background: var(--c-ink); color: var(--c-paper); transform: translateY(-1px); box-shadow: var(--shadow-2); }
+.btn--primary:active { transform: translateY(0); }
+.btn--ghost { color: var(--c-ink); border-color: var(--c-line-2); }
+.btn--ghost:hover { border-color: var(--c-blue); color: var(--c-blue-link); transform: translateY(-1px); }
 
 /* tabular figures wherever numbers line up */
 .tnum { font-variant-numeric: tabular-nums; }
@@ -212,7 +205,6 @@ a:hover {
 }
 
 @media print {
-  body::before { display: none; }
   .field-radio, .site-nav { display: none !important; }
   a { color: #000; text-decoration: underline; }
   .exp__item, .pub, .proj, figure { break-inside: avoid; }

@@ -14,7 +14,9 @@ const out = [
 for (const [name, size] of out) {
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'width', value: size },
-    background: '#f2ecde', // opaque paper so iOS doesn't fill rounded corners with black
+    // ponytail: ink hex duplicated from tokens.css --c-ink; opaque square so
+    // iOS doesn't fill rounded corners with black. Update with the palette.
+    background: '#1a1c1f',
   });
   const png = resvg.render().asPng();
   writeFileSync(new URL(`../public/${name}`, import.meta.url), png);

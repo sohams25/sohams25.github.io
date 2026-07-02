@@ -21,7 +21,6 @@ import { profile, sectionIntros } from '../data/site';
         <a href={profile.links.cv} target="_blank" rel="noopener noreferrer">CV ↗</a>
       </div>
 
-      <p class="contact__sign">{sectionIntros.contactSignoff}</p>
     </div>
   </div>
 </section>
@@ -65,12 +64,4 @@ import { profile, sectionIntros } from '../data/site';
   .contact__row a { color: var(--c-ink-2); text-decoration: none; border-bottom: 1px solid var(--c-line-2); }
   .contact__row a:hover { color: var(--c-blue-link); border-color: var(--c-blue); }
   .contact__sep { color: var(--c-line-2); }
-
-  .contact__sign {
-    margin-top: var(--space-6);
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: var(--text-lg);
-    color: var(--c-rust-deep);
-  }
 </style>

@@ -1,16 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Off the map — Soham Shinde" description="This page is off the map.">
+<Base title="Page not found — Soham Shinde" description="This page doesn't exist.">
   <main id="main" class="nf" aria-labelledby="nf-title">
     <div class="wrap nf__inner">
-      <p class="nf__code mono">404 · no signal</p>
-      <h1 id="nf-title" class="nf__title">Off the map.</h1>
+      <p class="nf__code mono">404</p>
+      <h1 id="nf-title" class="nf__title">There's nothing here.</h1>
       <p class="nf__body">
-        Whatever you were looking for moved, or never charted here. Head back to the
-        trailhead and start from the top.
+        This page moved or never existed. The homepage has everything that does.
       </p>
-      <a class="btn btn--primary" href="/">Back to base camp</a>
+      <a class="btn btn--primary" href="/">Go to the homepage</a>
     </div>
   </main>
 </Base>
@@ -18,7 +17,7 @@ import Base from '../layouts/Base.astro';
 <style>
   .nf { min-height: 70dvh; display: grid; place-items: center; padding-block: var(--space-8); }
   .nf__inner { text-align: left; max-width: 40rem; }
-  .nf__code { color: var(--c-rust); font-size: var(--text-sm); letter-spacing: 0.1em; text-transform: uppercase; }
+  .nf__code { color: var(--c-blue); font-size: var(--text-sm); letter-spacing: 0.1em; }
   .nf__title { margin-top: var(--space-3); font-size: var(--text-3xl); }
   .nf__body { margin-top: var(--space-4); margin-bottom: var(--space-6); color: var(--c-ink-2); max-width: 44ch; }
 </style>

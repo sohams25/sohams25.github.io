@@ -36,28 +36,34 @@ const personLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <script is:inline>
-      (function () {
-        var d = document.documentElement;
-        try {
-          var t = localStorage.getItem('theme');
-          if (t !== 'light' && t !== 'dark') {
-            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          }
-          d.dataset.theme = t;
-        } catch (e) {
-          d.dataset.theme = 'light';
-        }
-        d.classList.replace('no-js', 'js');
-      })();
-    </script>
-
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="author" content={profile.name} />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#f2ecde" />
+    <meta name="theme-color" content="#faf8f4" />
+    <!-- sits below the theme-color meta so it can correct it before paint;
+         dark visitors would otherwise get a light address bar until theme.ts loads -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        var t;
+        try {
+          t = localStorage.getItem('theme');
+          if (t !== 'light' && t !== 'dark') {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+        } catch (e) {
+          t = 'light';
+        }
+        d.dataset.theme = t;
+        if (t === 'dark') {
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute('content', '#101214');
+        }
+        d.classList.replace('no-js', 'js');
+      })();
+    </script>
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -1,42 +1,40 @@
 /* =========================================================================
-   Field Notes — design tokens
-   A field-journal / mission-log system for an ML / computer-vision / robotics
-   portfolio. Warm paper, cool ink text, ink-blue lead accent, terracotta-rust
-   secondary. Deliberately not the LLM-default "beige + brass + espresso" — the
-   accent is a cool blue and the text is a cool near-black, so the page reads
-   like a blueprint field journal, not artisan packaging.
+   Design tokens — quiet editorial.
+   Near-white paper, near-black ink, one ink-blue accent. Serif (Newsreader)
+   for headings and body, Space Mono for labels. No background patterns, no
+   second accent. Dark theme is a neutral graphite ledger with the same
+   structure, set via data-theme on <html> before paint.
    ========================================================================= */
 
 :root {
-  /* ---- Color: surfaces (warm paper) ---- */
-  --c-paper:        #f2ecde;   /* base sheet                     */
-  --c-paper-2:      #eae1cd;   /* raised panel / card / hover    */
-  --c-paper-3:      #e3d8c0;   /* deeper band / footer           */
-  --c-paper-edge:   #faf6ec;   /* highlight edge on raised cards */
+  /* ---- Color: surfaces ---- */
+  --c-paper:        #faf8f4;   /* base sheet                     */
+  --c-paper-2:      #f2efe8;   /* raised panel / card            */
+  --c-paper-3:      #ebe7de;   /* footer band                    */
+  --c-paper-edge:   #ffffff;   /* highlight edge on raised cards */
 
-  /* ---- Color: ink (cool, not espresso) ---- */
-  --c-ink:          #15171b;   /* primary text   ~15.9:1 on paper */
-  --c-ink-2:        #3a3f47;   /* secondary text ~ 8.4:1 on paper */
-  --c-ink-3:        #4a5159;   /* meta / labels  ~ 6.6:1 on paper (AA) */
+  /* ---- Color: ink ---- */
+  --c-ink:          #1a1c1f;   /* primary text   ~15.6:1 on paper */
+  --c-ink-2:        #43474e;   /* secondary text ~ 8.6:1 on paper */
+  --c-ink-3:        #5c6067;   /* meta / labels  ~ 5.9:1 on paper (AA) */
 
   /* ---- Color: hairlines ---- */
-  --c-line:         #d4c8ad;   /* faint rule       */
-  --c-line-2:       #c0b08f;   /* stronger rule    */
-  --c-grid:         #1c6dd01a; /* contour/grid ink (blue @ ~10%) */
+  --c-line:         #e2ddd2;   /* faint rule    */
+  --c-line-2:       #cfc9bb;   /* stronger rule */
 
-  /* ---- Color: accents ---- */
-  --c-blue:         #1772d0;   /* brand ink-blue — accents, marks, underlines */
-  --c-blue-link:    #134e96;   /* deep blue for body links (AA 5.6:1 on paper) */
-  --c-blue-wash:    #1772d014; /* faint blue fill */
-  --c-rust:         #c2552e;   /* terracotta-rust secondary */
-  --c-rust-deep:    #9e3f1f;   /* rust for link hover / AA text */
-  --c-rust-wash:    #c2552e14;
-  --c-fill-blue:    #1772d0;   /* saturated blue for white-icon fills (fixed both themes) */
-  --c-fill-blue-2:  #135aa8;   /* its hover */
+  /* ---- Color: accent (single) ---- */
+  --c-blue:         #1f5fbf;   /* accent — marks, underlines, buttons */
+  --c-blue-link:    #1a4f9e;   /* body links, ~7.2:1 on paper */
+  --c-blue-wash:    #1f5fbf14; /* faint blue fill */
+  --c-fill-blue:    #1f5fbf;   /* saturated fill under white icons (both themes) */
+  --c-fill-blue-2:  #17499a;   /* its hover */
 
   /* ---- Color: states ---- */
-  --c-focus:        #1772d0;
-  --c-good:         #3f7d3a;
+  --c-focus:        #1f5fbf;
+  --c-good:         #2f7a36;
+
+  /* light plate under org logos in dark mode (fixed across themes) */
+  --c-logo-plate:   #f4f2ec;
 
   /* ---- Typography ---- */
   --font-display: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
@@ -47,6 +45,7 @@
   --text-2xs:  0.6875rem;                              /* 11px mono labels   */
   --text-xs:   0.75rem;                                /* 12px mono meta     */
   --text-sm:   0.8125rem;                              /* 13px               */
+  --text-md:   0.9375rem;                              /* 15px chat text     */
   --text-base: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);   /* body 17→19 */
   --text-lg:   clamp(1.25rem, 1.16rem + 0.4vw, 1.5rem);
   --text-xl:   clamp(1.5rem, 1.32rem + 0.8vw, 2.0rem);
@@ -76,18 +75,17 @@
   --content-max: 78rem;        /* page container     */
   --rule-w: 1px;
 
-  /* ---- Radius — documented tier system (taste-skill shape-consistency lock):
-     containers/cards use --r-md, inner markers/inputs/thumbs use --r-sm,
-     interactive pills use --r-pill. Followed everywhere. ---- */
+  /* ---- Radius — containers/cards use --r-md, inner markers/inputs/thumbs
+     use --r-sm, interactive pills use --r-pill. ---- */
   --r-xs: 2px;
   --r-sm: 4px;
   --r-md: 8px;
   --r-pill: 999px;
 
-  /* ---- Elevation (tinted warm, never pure black) ---- */
-  --shadow-1: 0 1px 0 var(--c-paper-edge), 0 1px 2px rgba(58, 44, 22, 0.10);
-  --shadow-2: 0 1px 0 var(--c-paper-edge), 0 8px 24px -10px rgba(58, 44, 22, 0.28);
-  --shadow-pop: 0 18px 50px -16px rgba(34, 30, 22, 0.42);
+  /* ---- Elevation ---- */
+  --shadow-1: 0 1px 0 var(--c-paper-edge), 0 1px 2px rgba(26, 28, 31, 0.07);
+  --shadow-2: 0 1px 0 var(--c-paper-edge), 0 8px 24px -10px rgba(26, 28, 31, 0.18);
+  --shadow-pop: 0 18px 50px -16px rgba(26, 28, 31, 0.30);
 
   /* ---- Motion ---- */
   --dur-1: 140ms;
@@ -97,7 +95,6 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
   /* ---- Z ---- */
-  --z-bg: 0;
   --z-content: 1;
   --z-nav: 40;
   --z-radio: 60;
@@ -107,41 +104,33 @@
 }
 
 /* =========================================================================
-   Night field log — dark theme. Set via data-theme on <html> (an inline head
-   script picks localStorage or the OS preference before paint). Components read
-   the same tokens, so only these values change. --c-good / --c-fill-blue stay
-   fixed because they sit under white icons/text and stay legible on both
-   surfaces.
+   Dark theme. Neutral graphite, clear value steps so cards lift on their own,
+   desaturated blue accent. Same token names, only values change.
+   --c-good / --c-fill-blue stay fixed: they sit under white icons/text and
+   stay legible on both surfaces.
    ========================================================================= */
 :root[data-theme='dark'] {
-  /* warm, layered "campfire ledger". Clear value steps so cards lift on their
-     own (dark-on-dark shadows barely read), warm hue throughout, lamplight
-     amber as the lead accent. */
-  --c-paper:        #1b1712;   /* warm espresso-black base */
-  --c-paper-2:      #262019;   /* card surface — distinctly lighter + warmer */
-  --c-paper-3:      #15120d;   /* footer / deep band — darker than base */
-  --c-paper-edge:   #322a20;   /* raised edge / frame / chips */
+  --c-paper:        #101214;   /* graphite base */
+  --c-paper-2:      #191c20;   /* card surface — distinctly lighter */
+  --c-paper-3:      #0b0d0f;   /* footer / deep band */
+  --c-paper-edge:   #23272d;   /* raised edge / frame / chips */
 
-  --c-ink:          #efe6d4;   /* warm paper-white  ~14:1 on base */
-  --c-ink-2:        #cabfa9;   /* secondary         ~ 8:1 */
-  --c-ink-3:        #a0967f;   /* meta              ~ 5.6:1 (AA) */
+  --c-ink:          #e9e9e7;   /* ~14:1 on base */
+  --c-ink-2:        #b3b6bb;   /* ~ 8:1 */
+  --c-ink-3:        #8b8f96;   /* ~ 5.5:1 (AA) */
 
-  --c-line:         #3a3324;   /* warm hairline, reads on cards */
-  --c-line-2:       #4f4632;
-  --c-grid:         #e7cd9610; /* faint warm ledger grid (~6%) */
+  --c-line:         #262a30;
+  --c-line-2:       #363b43;
 
-  --c-blue:         #79b0f0;   /* links / marks on dark */
-  --c-blue-link:    #93c2f5;   /* body links  ~9:1 */
-  --c-blue-wash:    #79b0f01f;
-  --c-rust:         #e2925a;   /* lamplight amber-rust — lead warm accent */
-  --c-rust-deep:    #eea878;   /* rust text / hover  ~8:1 */
-  --c-rust-wash:    #e2925a1f;
+  --c-blue:         #7aa7e8;   /* marks on dark */
+  --c-blue-link:    #93b8f0;   /* body links ~8.6:1 */
+  --c-blue-wash:    #7aa7e81f;
 
-  --c-focus:        #93c2f5;
+  --c-focus:        #93b8f0;
 
-  /* inset top highlight = embossed-paper edge; deeper ambient drop below */
-  --shadow-1: inset 0 1px 0 rgba(255, 238, 210, 0.05), 0 1px 2px rgba(0, 0, 0, 0.55);
-  --shadow-2: inset 0 1px 0 rgba(255, 238, 210, 0.06), 0 14px 32px -14px rgba(0, 0, 0, 0.78);
+  /* inset top highlight reads as a lit edge; deeper ambient drop below */
+  --shadow-1: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 1px 2px rgba(0, 0, 0, 0.55);
+  --shadow-2: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 32px -14px rgba(0, 0, 0, 0.78);
   --shadow-pop: 0 26px 66px -18px rgba(0, 0, 0, 0.86);
 
   color-scheme: dark;

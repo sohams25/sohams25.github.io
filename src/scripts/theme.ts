@@ -5,8 +5,6 @@ const root = document.documentElement;
 const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
 const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
 
-const BG: Record<'light' | 'dark', string> = { light: '#f2ecde', dark: '#181611' };
-
 function current(): 'light' | 'dark' {
   return root.dataset.theme === 'dark' ? 'dark' : 'light';
 }
@@ -18,7 +16,9 @@ function apply(theme: 'light' | 'dark') {
   } catch {
     /* storage blocked; in-memory only */
   }
-  if (meta) meta.setAttribute('content', BG[theme]);
+  // read the paper token so this never drifts from tokens.css
+  const bg = getComputedStyle(root).getPropertyValue('--c-paper').trim();
+  if (meta && bg) meta.setAttribute('content', bg);
   if (btn) {
     btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
     btn.setAttribute('aria-pressed', String(theme === 'dark'));

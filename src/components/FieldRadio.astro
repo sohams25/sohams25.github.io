@@ -19,7 +19,6 @@ import { fieldRadio } from '../data/chatbot';
         <circle cx="7" cy="16.5" r="1.4" fill="currentColor" stroke="none" />
         <path d="M11 15.5h3M11 17.5h3" />
       </svg>
-      <span class="fr-signal" aria-hidden="true"></span>
     </span>
     <span class="fr-toggle__label">{fieldRadio.panelTitle}</span>
   </button>
@@ -33,13 +32,7 @@ import { fieldRadio } from '../data/chatbot';
     hidden
   >
     <header class="fr-head">
-      <div>
-        <p class="fr-head__title">
-          <span class="fr-signal fr-signal--static" aria-hidden="true"></span>
-          {fieldRadio.panelTitle}
-        </p>
-        <p class="fr-head__sub">{fieldRadio.introLine}</p>
-      </div>
+      <p class="fr-head__title">{fieldRadio.panelTitle}</p>
       <button type="button" class="fr-close" data-fr-close aria-label="Close field radio">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
           <path d="M6 6l12 12M18 6L6 18" />
@@ -50,7 +43,6 @@ import { fieldRadio } from '../data/chatbot';
     <ul class="fr-log" data-fr-log role="log" aria-live="polite" aria-label="Conversation"></ul>
 
     <div class="fr-suggest" data-fr-suggest hidden>
-      <span class="label">Try</span>
       <div class="fr-suggest__row">
         {fieldRadio.suggestedQuestions.map((q) => (
           <button type="button" class="fr-chip" data-fr-q>{q}</button>
@@ -75,7 +67,7 @@ import { fieldRadio } from '../data/chatbot';
         </svg>
       </button>
     </form>
-    <p class="fr-note label">Answers come from a model speaking as Soham. Verify anything that matters.</p>
+    <p class="fr-note">Answers come from a model speaking as Soham. Verify anything that matters.</p>
   </section>
 </div>
 
@@ -109,7 +101,7 @@ import { fieldRadio } from '../data/chatbot';
   }
   .fr-toggle:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
   .fr-toggle:active { transform: translateY(0); }
-  .fr-toggle__icon { position: relative; display: inline-flex; color: var(--c-paper); }
+  .fr-toggle__icon { display: inline-flex; color: var(--c-paper); }
   .fr-toggle__label {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
@@ -117,41 +109,19 @@ import { fieldRadio } from '../data/chatbot';
   }
   .is-open .fr-toggle { display: none; }
 
-  .fr-signal {
-    position: absolute;
-    top: -1px; right: -2px;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--c-rust);
-  }
-  .fr-signal::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: var(--c-rust);
-    animation: fr-ping 2.4s var(--ease-out) infinite;
-  }
-  .fr-signal--static { position: static; display: inline-block; vertical-align: middle; background: var(--c-good); }
-  .fr-signal--static::after { display: none; }
-  /* compositor-only ping */
-  @keyframes fr-ping {
-    0% { opacity: 0.55; transform: scale(1); }
-    70%, 100% { opacity: 0; transform: scale(2.6); }
-  }
-
   /* ---- panel ---- */
   /* `.fr-panel` sets display:flex, which would override the UA [hidden] rule and
      leave the panel always visible. Re-assert hiding for the hidden state so the
      close button, Escape, and initial state work. */
   .fr-panel[hidden] { display: none; }
   .fr-panel {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
     z-index: var(--z-radio-panel);
-    width: min(24rem, calc(100vw - 2rem));
-    max-height: min(34rem, calc(100dvh - 3rem));
+    width: min(30rem, calc(100vw - 2rem));
+    /* height hugs the conversation; the max-height is the only cap */
+    max-height: min(42rem, calc(100dvh - 4rem));
     display: flex;
     flex-direction: column;
     background: var(--c-paper);
@@ -169,12 +139,12 @@ import { fieldRadio } from '../data/chatbot';
 
   .fr-head {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: var(--space-3);
-    padding: var(--space-4);
+    padding: var(--space-3) var(--space-4);
     border-bottom: 1px solid var(--c-line);
-    background: linear-gradient(var(--c-paper-edge), var(--c-paper));
+    background: var(--c-paper-2);
   }
   .fr-head__title {
     font-family: var(--font-mono);
@@ -182,14 +152,6 @@ import { fieldRadio } from '../data/chatbot';
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--c-ink);
-    display: inline-flex; align-items: center; gap: 0.5rem;
-  }
-  .fr-head__sub {
-    margin-top: 0.35rem;
-    font-size: var(--text-sm);
-    line-height: 1.4;
-    color: var(--c-ink-2);
-    max-width: 26ch;
   }
   .fr-close {
     flex: none;
@@ -198,7 +160,7 @@ import { fieldRadio } from '../data/chatbot';
     border-radius: var(--r-sm);
     transition: color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
   }
-  .fr-close:hover { color: var(--c-ink); background: var(--c-paper-2); }
+  .fr-close:hover { color: var(--c-ink); background: var(--c-paper-edge); }
 
   .fr-log {
     list-style: none;
@@ -206,41 +168,53 @@ import { fieldRadio } from '../data/chatbot';
     padding: var(--space-4);
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-3);
     overflow-y: auto;
     flex: 1;
+    min-height: 0;
+    overscroll-behavior: contain;
   }
-  .fr-msg { display: flex; flex-direction: column; gap: 0.25rem; max-width: 88%; }
-  .fr-msg--user { align-self: flex-end; align-items: flex-end; }
-  .fr-msg__who { font-size: var(--text-2xs); }
-  .fr-msg--user .fr-msg__who { color: var(--c-blue-link); }
-  .fr-msg--assistant .fr-msg__who { color: var(--c-rust-deep); }
-  .fr-msg__body {
-    font-size: var(--text-sm);
-    line-height: 1.5;
-    padding: 0.55rem 0.75rem;
+  /* Messages are created at runtime by field-radio.ts, so they never get
+     Astro's scoping attribute — these selectors must be :global. */
+  .fr-log :global(.fr-msg) { display: flex; flex-direction: column; gap: 0.25rem; max-width: 85%; }
+  .fr-log :global(.fr-msg--user) { align-self: flex-end; align-items: flex-end; }
+  .fr-log :global(.fr-msg__who) { font-size: var(--text-2xs); }
+  .fr-log :global(.fr-msg--user .fr-msg__who) { color: var(--c-blue-link); }
+  .fr-log :global(.fr-msg--assistant .fr-msg__who) { color: var(--c-ink-3); }
+  .fr-log :global(.fr-msg__body) {
+    font-size: var(--text-md);
+    line-height: 1.55;
+    padding: 0.6rem 0.8rem;
     border-radius: var(--r-md);
     border: 1px solid var(--c-line);
+    overflow-wrap: anywhere;
   }
-  .fr-msg--assistant .fr-msg__body { background: var(--c-paper-2); border-top-left-radius: var(--r-xs); }
-  .fr-msg--user .fr-msg__body { background: var(--c-blue-wash); border: 1px solid color-mix(in srgb, var(--c-blue) 30%, transparent); border-top-right-radius: var(--r-xs); }
+  .fr-log :global(.fr-msg--assistant .fr-msg__body) { background: var(--c-paper-2); border-top-left-radius: var(--r-xs); }
+  .fr-log :global(.fr-msg--user .fr-msg__body) { background: var(--c-blue-wash); border: 1px solid color-mix(in srgb, var(--c-blue) 30%, transparent); border-top-right-radius: var(--r-xs); }
 
-  .fr-dots { display: inline-flex; gap: 4px; padding: 0.3rem 0.1rem; }
-  .fr-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--c-ink-3); animation: fr-bounce 1s var(--ease-in-out) infinite; }
-  .fr-dots i:nth-child(2) { animation-delay: 0.15s; }
-  .fr-dots i:nth-child(3) { animation-delay: 0.3s; }
+  .fr-log :global(.fr-dots) { display: inline-flex; gap: 4px; padding: 0.3rem 0.1rem; }
+  .fr-log :global(.fr-dots i) { width: 6px; height: 6px; border-radius: 50%; background: var(--c-ink-3); animation: fr-bounce 1s var(--ease-in-out) infinite; }
+  .fr-log :global(.fr-dots i:nth-child(2)) { animation-delay: 0.15s; }
+  .fr-log :global(.fr-dots i:nth-child(3)) { animation-delay: 0.3s; }
   @keyframes fr-bounce { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
 
+  /* wraps on desktop so every prompt stays visible; one swipeable row on phones */
   .fr-suggest { padding: 0 var(--space-4) var(--space-2); }
-  .fr-suggest__row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+  .fr-suggest__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
   .fr-chip {
+    flex: none;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--c-ink-2);
-    padding: 0.3rem 0.55rem;
+    padding: 0.35rem 0.65rem;
     border: 1px solid var(--c-line-2);
     border-radius: var(--r-pill);
     background: var(--c-paper);
+    white-space: nowrap;
     transition: border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
   }
   .fr-chip:hover { border-color: var(--c-blue); color: var(--c-blue-link); background: var(--c-blue-wash); }
@@ -257,9 +231,9 @@ import { fieldRadio } from '../data/chatbot';
     resize: none;
     border: 1px solid var(--c-line-2);
     border-radius: var(--r-sm);
-    background: var(--c-paper-edge);
+    background: var(--c-paper-2);
     padding: 0.5rem 0.6rem;
-    font-size: var(--text-sm);
+    font-size: var(--text-md);
     line-height: 1.4;
     max-height: 132px;
     transition: border-color var(--dur-1) var(--ease-out);
@@ -280,15 +254,33 @@ import { fieldRadio } from '../data/chatbot';
 
   .fr-note {
     padding: 0 var(--space-4) var(--space-3);
-    font-size: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
     color: var(--c-ink-3);
     letter-spacing: 0.04em;
-    text-transform: none;
   }
 
+  /* phones: full-width bottom sheet */
   @media (max-width: 30rem) {
-    .fr-panel { width: calc(100vw - 1.5rem); max-height: calc(100dvh - 2.5rem); }
+    .fr-panel {
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 85dvh;
+      border-radius: var(--r-md) var(--r-md) 0 0;
+      border-inline: 0;
+      border-bottom: 0;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
     .fr-input { font-size: 16px; } /* >=16px stops iOS focus-zoom */
+    .fr-suggest__row {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .fr-suggest__row::-webkit-scrollbar { display: none; }
     .fr-send { width: 44px; height: 44px; }
     .fr-close { padding: 0.45rem; }
     .fr-toggle { padding: 0.72rem 1.15rem; }

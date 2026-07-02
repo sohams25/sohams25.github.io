@@ -1,8 +1,6 @@
 ---
 import SectionHead from './SectionHead.astro';
 import { projects, sectionIntros } from '../data/site';
-
-const pad = (n: number) => String(n + 1).padStart(2, '0');
 ---
 <section class="section proj-section" id="projects" aria-labelledby="projects-h">
   <div class="wrap">
@@ -12,7 +10,6 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
       {projects.map((p, i) => (
         <li class="proj reveal" style={`--reveal-delay: ${i * 80}ms`}>
           <div class="proj__head">
-            <span class="proj__code mono">EXP-{pad(i)}</span>
             <span class="proj__period coord">{p.period}</span>
           </div>
           <h3 class="proj__name">{p.name}</h3>
@@ -48,33 +45,15 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
     border: 1px solid var(--c-line-2);
     border-radius: var(--r-md);
     padding: var(--space-5);
-    position: relative;
-    overflow: hidden;
     transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
   }
-  /* corner fold accent */
-  .proj::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    border-width: 0 1.1rem 1.1rem 0;
-    border-style: solid;
-    border-color: var(--c-paper-3) var(--c-paper) var(--c-paper) var(--c-paper-3);
-    transition: border-color var(--dur-2) var(--ease-out);
-  }
   .proj:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
-  .proj:hover::before { border-color: var(--c-rust) var(--c-paper) var(--c-paper) var(--c-rust); }
 
   .proj__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
     padding-bottom: var(--space-3);
     margin-bottom: var(--space-3);
-    border-bottom: 1px dashed var(--c-line-2);
+    border-bottom: 1px solid var(--c-line);
   }
-  .proj__code { font-size: var(--text-2xs); letter-spacing: 0.1em; color: var(--c-rust-deep); }
   .proj__period { font-size: var(--text-2xs); color: var(--c-ink-3); }
   .proj__name { font-size: var(--text-xl); font-variation-settings: 'opsz' 36; }
   .proj__note { margin-top: 0.4rem; text-transform: none; letter-spacing: 0.02em; color: var(--c-ink-3); font-style: italic; }
@@ -87,8 +66,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
     text-decoration: none;
     border-bottom: 1px solid color-mix(in srgb, var(--c-blue) 40%, transparent);
   }
-  .proj__link:hover { color: var(--c-rust-deep); border-color: var(--c-rust-deep); }
+  .proj__link:hover { color: var(--c-blue); border-color: var(--c-blue); }
   /* in dark, the flush card would merge with the base — lift it onto a surface */
   :global(html[data-theme='dark']) .proj { background: var(--c-paper-2); border-color: var(--c-line); }
-  :global(html[data-theme='dark']) .proj::before { border-color: var(--c-paper-edge) var(--c-paper-2) var(--c-paper-2) var(--c-paper-edge); }
 </style>

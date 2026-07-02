@@ -1,14 +1,26 @@
 {
   "name": "Soham Shinde",
   "short_name": "Soham Shinde",
-  "description": "ML / computer vision / robotics. Field notes.",
+  "description": "Machine learning, computer vision, robotics.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f2ecde",
-  "theme_color": "#f2ecde",
+  "background_color": "#faf8f4",
+  "theme_color": "#faf8f4",
   "icons": [
-    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
-    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
-    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
   ]
 }

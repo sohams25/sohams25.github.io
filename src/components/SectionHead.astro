@@ -1,0 +1,68 @@
+---
+interface Props {
+  index: string;   // "01"
+  total?: string;  // "04"
+  id: string;
+  title: string;
+  intro?: string;
+}
+const { index, total = '04', id, title, intro } = Astro.props;
+---
+<div class="sec-head">
+  <div class="sec-head__rail" aria-hidden="true">
+    <span class="sec-head__num tnum">{index}</span>
+    <span class="sec-head__of tnum">/ {total}</span>
+    <span class="sec-head__line"></span>
+  </div>
+  <div class="sec-head__main">
+    <h2 id={id}>{title}</h2>
+    {intro && <p class="sec-head__intro">{intro}</p>}
+  </div>
+</div>
+
+<style>
+  .sec-head {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+    margin-bottom: var(--space-7);
+  }
+  .sec-head__rail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding-top: 0.4rem;
+  }
+  .sec-head__num {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    color: var(--c-blue);
+    line-height: 1;
+  }
+  .sec-head__of {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    color: var(--c-ink-3);
+  }
+  .sec-head__line {
+    margin-top: 0.5rem;
+    width: 1px;
+    height: clamp(1.5rem, 4vw, 3rem);
+    background: linear-gradient(var(--c-line-2), transparent);
+  }
+  .sec-head__intro {
+    margin-top: var(--space-3);
+    font-size: var(--text-lg);
+    line-height: 1.4;
+    color: var(--c-ink-2);
+    max-width: 46ch;
+    font-style: italic;
+  }
+  @media (max-width: 40rem) {
+    .sec-head { grid-template-columns: 1fr; gap: var(--space-3); }
+    .sec-head__rail { flex-direction: row; align-items: center; gap: 0.6rem; }
+    .sec-head__line { display: none; }
+  }
+</style>

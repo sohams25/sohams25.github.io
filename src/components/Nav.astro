@@ -1,0 +1,94 @@
+---
+import { profile } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+const links = [
+  { label: 'Experience', href: '#experience' },
+  { label: 'Publications', href: '#publications' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+<header class="site-nav">
+  <nav class="wrap site-nav__inner" aria-label="Primary">
+    <a class="site-nav__brand" href="#top">
+      <span class="site-nav__name">{profile.name}</span>
+    </a>
+
+    <ul class="site-nav__links">
+      {links.map((l) => (
+        <li><a href={l.href}>{l.label}</a></li>
+      ))}
+      <li>
+        <a class="site-nav__cv" href={profile.links.cv} target="_blank" rel="noopener noreferrer">
+          CV<span aria-hidden="true"> ↗</span>
+        </a>
+      </li>
+      <li class="site-nav__toggle"><ThemeToggle /></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-nav);
+    background: color-mix(in srgb, var(--c-paper) 86%, transparent);
+    backdrop-filter: saturate(120%) blur(8px);
+    -webkit-backdrop-filter: saturate(120%) blur(8px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .site-nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 60px;
+    flex-wrap: wrap;
+    padding-block: 0.5rem;
+  }
+  .site-nav__brand {
+    display: inline-flex;
+    align-items: center;
+    color: var(--c-ink);
+    text-decoration: none;
+  }
+  .site-nav__name {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+  .site-nav__links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 1.6rem);
+    margin: 0; padding: 0;
+  }
+  .site-nav__links a {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    color: var(--c-ink-2);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  .site-nav__links a:hover { color: var(--c-ink); border-color: var(--c-blue); }
+  .site-nav__cv { color: var(--c-blue-link) !important; }
+
+  @media (max-width: 38rem) {
+    .site-nav__inner { justify-content: center; }
+    .site-nav__links {
+      width: 100%;
+      justify-content: space-between;
+      overflow-x: auto;
+      padding-top: 0.4rem;
+      border-top: 1px solid var(--c-line);
+      margin-top: 0.4rem;
+    }
+  }
+</style>

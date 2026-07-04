@@ -1,0 +1,104 @@
+---
+import SectionHead from './SectionHead.astro';
+import { publications, sectionIntros } from '../data/site';
+---
+<section class="section pub-section" id="publications" aria-labelledby="publications-h">
+  <div class="wrap">
+    <SectionHead index="02" id="publications-h" title="Publications" intro={sectionIntros.publications} />
+
+    <ul class="pubs">
+      {publications.map((p, i) => (
+        <li class="pub reveal" style={`--reveal-delay: ${i * 80}ms`}>
+          <div class="pub__thumb">
+            <img src={p.thumb} alt={p.thumbAlt} width="320" height="200" loading="lazy" decoding="async" />
+          </div>
+          <div class="pub__body">
+            <span class={`pub__status pub__status--${p.status === 'Accepted' ? 'in' : 'review'}`}>
+              {p.status}
+            </span>
+            <h3 class="pub__title">
+              {p.link
+                ? <a href={p.link} target="_blank" rel="noopener noreferrer">{p.title}</a>
+                : p.title}
+            </h3>
+            <p class="pub__authors">{p.authors}</p>
+            <p class="pub__venue coord">{p.venue}</p>
+            {p.link && (
+              <a class="pub__link mono" href={p.link} target="_blank" rel="noopener noreferrer">
+                Read the paper<span aria-hidden="true"> ↗</span>
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* the one section that sits on the alternating band — a second surface
+     value without a second hue. Repeats the body's texture layers so the
+     grain doesn't cut off at the band edge. */
+  .pub-section {
+    background-color: var(--c-paper-tint);
+    background-image: var(--tex-grain), var(--tex-chevron);
+    background-size: 240px 240px, 28px 18px;
+  }
+
+  .pubs {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+  .pub {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--c-card-on-tint);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-md);
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+  }
+  .pub:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); border-color: var(--c-line-2); }
+  .pub__thumb {
+    border: 1px solid var(--c-line-2);
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    background: var(--c-paper-edge);
+    align-self: start;
+  }
+  .pub__thumb img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .pub__status {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.5rem;
+    border-radius: var(--r-xs);
+    margin-bottom: 0.6rem;
+  }
+  .pub__status--in { color: #fff; background: var(--c-good); }
+  .pub__status--review { color: var(--c-blue-link); background: var(--c-blue-wash); border: 1px solid color-mix(in srgb, var(--c-blue) 35%, transparent); }
+  .pub__title { font-size: var(--text-base); line-height: 1.3; font-weight: 600; }
+  .pub__title a { color: var(--c-ink); text-decoration-color: color-mix(in srgb, var(--c-blue) 40%, transparent); }
+  .pub__title a:hover { color: var(--c-blue-link); }
+  .pub__authors { margin-top: 0.5rem; font-size: var(--text-sm); color: var(--c-ink-2); }
+  .pub__venue { margin-top: 0.4rem; font-size: var(--text-xs); color: var(--c-ink-3); }
+  .pub__link {
+    display: inline-block;
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--c-blue-link);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--c-blue) 40%, transparent);
+  }
+  .pub__link:hover { color: var(--c-blue); border-color: var(--c-blue); }
+
+  @media (max-width: 30rem) {
+    .pub { grid-template-columns: 1fr; }
+    .pub__thumb { max-width: 12rem; }
+  }
+</style>

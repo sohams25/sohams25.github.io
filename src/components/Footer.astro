@@ -1,0 +1,80 @@
+---
+import { orgs, profile } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer__label label">Past and present</p>
+    <ul class="footer__orgs" aria-label="Institutions and employers">
+      {orgs.map((o) => (
+        <li><img src={o.logo} alt={o.name} width="92" height="46" loading="lazy" decoding="async" /></li>
+      ))}
+    </ul>
+
+    <hr class="rule footer__rule" />
+
+    <div class="footer__base">
+      <p class="footer__fine mono">
+        © {year} {profile.name}. Designed and built in Astro.
+        <a href="https://github.com/sohams25/sohams25.github.io" target="_blank" rel="noopener noreferrer">Source</a>.
+      </p>
+      <a class="footer__top mono" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--c-paper-3);
+    border-top: 1px solid var(--c-line-2);
+    padding-block: var(--space-7);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .footer__label { display: block; margin-bottom: var(--space-4); }
+  .footer__orgs {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(1.25rem, 4vw, 2.75rem);
+  }
+  .footer__orgs img {
+    height: 2.5rem;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.55;
+    filter: grayscale(1);
+    transition: opacity var(--dur-2) var(--ease-out), filter var(--dur-2) var(--ease-out);
+  }
+  .footer__orgs img:hover { opacity: 0.95; filter: grayscale(0); }
+  /* dark mode: light plates keep the full-colour marks legible on the dark band */
+  :global(html[data-theme='dark']) .footer__orgs li {
+    background: var(--c-logo-plate);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--r-sm);
+    padding: 0.45rem 0.7rem;
+  }
+  :global(html[data-theme='dark']) .footer__orgs img { height: 2rem; opacity: 0.9; filter: none; }
+  :global(html[data-theme='dark']) .footer__orgs img:hover { opacity: 1; }
+  /* .rule's border-image fade paints instead of border-color, so no local
+     colour override — the fade is already built from --c-line-2 */
+  .footer__rule { margin-block: var(--space-6); }
+  .footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+  .footer__fine { font-size: var(--text-xs); color: var(--c-ink-3); }
+  .footer__fine a { color: var(--c-ink-2); }
+  .footer__top {
+    font-size: var(--text-xs);
+    color: var(--c-ink-2);
+    text-decoration: none;
+    border-bottom: 1px solid var(--c-line-2);
+  }
+  .footer__top:hover { color: var(--c-blue-link); border-color: var(--c-blue); }
+</style>

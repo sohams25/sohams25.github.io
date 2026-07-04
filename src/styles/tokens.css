@@ -1,0 +1,165 @@
+/* =========================================================================
+   Design tokens — quiet editorial.
+   Near-white paper, near-black ink, one ink-blue accent. Serif (Newsreader)
+   for headings and body, Space Mono for labels. One barely-there paper grain
+   plus a soft tonal lift at the top of the page — no patterns beyond that, no
+   second accent. Dark theme is a neutral graphite ledger with the same
+   structure, set via data-theme on <html> before paint.
+   ========================================================================= */
+
+:root {
+  /* ---- Color: surfaces ---- */
+  --c-paper:        #faf8f4;   /* base sheet                     */
+  --c-paper-2:      #f2efe8;   /* raised panel / card            */
+  --c-paper-3:      #ebe7de;   /* footer band                    */
+  --c-paper-edge:   #ffffff;   /* highlight edge on raised cards */
+
+  /* ---- Color: ink ---- */
+  --c-ink:          #1a1c1f;   /* primary text   ~15.6:1 on paper */
+  --c-ink-2:        #43474e;   /* secondary text ~ 8.6:1 on paper */
+  --c-ink-3:        #5c6067;   /* meta / labels  ~ 5.9:1 on paper (AA) */
+
+  /* ---- Color: hairlines ---- */
+  --c-line:         #e2ddd2;   /* faint rule    */
+  --c-line-2:       #cfc9bb;   /* stronger rule */
+
+  /* ---- Color: accent (single) ---- */
+  --c-blue:         #1f5fbf;   /* accent — marks, underlines, buttons */
+  --c-blue-link:    #1a4f9e;   /* body links, ~7.2:1 on paper */
+  --c-blue-wash:    #1f5fbf14; /* faint blue fill */
+  --c-fill-blue:    #1f5fbf;   /* saturated fill under white icons (both themes) */
+  --c-fill-blue-2:  #17499a;   /* its hover */
+
+  /* ---- Color: states ---- */
+  --c-focus:        #1f5fbf;
+  --c-good:         #2f7a36;
+
+  /* light plate under org logos in dark mode (fixed across themes) */
+  --c-logo-plate:   #f4f2ec;
+
+  /* ---- Texture & atmosphere (applied to body in base.css) ----
+     Grain is an inline SVG noise tile with its opacity baked in (~2% mean in
+     light) so it can never sit above content. Tone is one soft radial lift at
+     the top of the sheet so the page isn't a single flat value. */
+  --tex-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.038 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+  /* fine zigzag rows — a woven twill, ~28px repeat, opacity baked in.
+     The stroke hex tracks --c-ink per theme; CSS vars can't reach inside a
+     data URI, so retune these by hand if the ink palette changes. */
+  --tex-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='18'%3E%3Cpath d='M0 13 L14 3 L28 13' fill='none' stroke='%231a1c1f' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E");
+  --bg-tone: radial-gradient(110rem 46rem at 50% -14rem, rgba(255, 255, 255, 0.6), transparent 72%);
+
+  /* alternating section band + the card surface that sits on it */
+  --c-paper-tint:   #f4f1e9;
+  --c-card-on-tint: var(--c-paper);
+
+  /* hairline that fades at both ends — section boundaries, .rule */
+  --hairline-fade: linear-gradient(90deg, transparent, var(--c-line-2) 16%, var(--c-line-2) 84%, transparent);
+
+  /* ---- Typography ---- */
+  --font-display: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body:    'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono:    'Space Mono', ui-monospace, 'SFMono-Regular', 'JetBrains Mono', 'Menlo', monospace;
+
+  /* Fluid type scale (min 360px → max 1240px). */
+  --text-2xs:  0.6875rem;                              /* 11px mono labels   */
+  --text-xs:   0.75rem;                                /* 12px mono meta     */
+  --text-sm:   0.8125rem;                              /* 13px               */
+  --text-md:   0.9375rem;                              /* 15px chat text     */
+  --text-base: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);   /* body 17→19 */
+  --text-lg:   clamp(1.25rem, 1.16rem + 0.4vw, 1.5rem);
+  --text-xl:   clamp(1.5rem, 1.32rem + 0.8vw, 2.0rem);
+  --text-2xl:  clamp(2.0rem, 1.6rem + 1.7vw, 3.0rem);
+  --text-3xl:  clamp(2.6rem, 1.9rem + 3.0vw, 4.5rem);
+  --text-hero: clamp(3.0rem, 1.9rem + 4.9vw, 6.25rem);
+
+  --leading-tight: 1.04;
+  --leading-snug:  1.22;
+  --leading-body:  1.62;
+  --tracking-mono: 0.04em;
+  --tracking-label: 0.16em;
+
+  /* ---- Spacing scale (4px base, fluid section gaps) ---- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.5rem;
+  --space-6:  2rem;
+  --space-7:  3rem;
+  --space-8:  4rem;
+  --space-section: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+
+  /* ---- Layout ---- */
+  --measure: 64ch;             /* body reading width */
+  --content-max: 78rem;        /* page container     */
+  --rule-w: 1px;
+
+  /* ---- Radius — containers/cards use --r-md, inner markers/inputs/thumbs
+     use --r-sm, interactive pills use --r-pill. ---- */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-pill: 999px;
+
+  /* ---- Elevation ---- */
+  --shadow-1: 0 1px 0 var(--c-paper-edge), 0 1px 2px rgba(26, 28, 31, 0.07);
+  --shadow-2: 0 1px 0 var(--c-paper-edge), 0 8px 24px -10px rgba(26, 28, 31, 0.18);
+  --shadow-pop: 0 18px 50px -16px rgba(26, 28, 31, 0.30);
+
+  /* ---- Motion ---- */
+  --dur-1: 140ms;
+  --dur-2: 240ms;
+  --dur-3: 520ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---- Z ---- */
+  --z-content: 1;
+  --z-nav: 40;
+  --z-radio: 60;
+  --z-radio-panel: 70;
+
+  color-scheme: light;
+}
+
+/* =========================================================================
+   Dark theme. Neutral graphite, clear value steps so cards lift on their own,
+   desaturated blue accent. Same token names, only values change.
+   --c-good / --c-fill-blue stay fixed: they sit under white icons/text and
+   stay legible on both surfaces.
+   ========================================================================= */
+:root[data-theme='dark'] {
+  --c-paper:        #101214;   /* graphite base */
+  --c-paper-2:      #191c20;   /* card surface — distinctly lighter */
+  --c-paper-3:      #0b0d0f;   /* footer / deep band */
+  --c-paper-edge:   #23272d;   /* raised edge / frame / chips */
+
+  --c-ink:          #e9e9e7;   /* ~14:1 on base */
+  --c-ink-2:        #b3b6bb;   /* ~ 8:1 */
+  --c-ink-3:        #8b8f96;   /* ~ 5.5:1 (AA) */
+
+  --c-line:         #262a30;
+  --c-line-2:       #363b43;
+
+  /* dark takes slightly more grain before it gets loud; tone reads as one
+     low lamp over the bench rather than a brighter sheet */
+  --tex-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+  --tex-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='18'%3E%3Cpath d='M0 13 L14 3 L28 13' fill='none' stroke='%23e9e9e7' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+  --bg-tone: radial-gradient(110rem 46rem at 50% -14rem, rgba(233, 233, 231, 0.05), transparent 72%);
+
+  --c-paper-tint:   #14171a;
+  --c-card-on-tint: var(--c-paper-2);
+
+  --c-blue:         #7aa7e8;   /* marks on dark */
+  --c-blue-link:    #93b8f0;   /* body links ~8.6:1 */
+  --c-blue-wash:    #7aa7e81f;
+
+  --c-focus:        #93b8f0;
+
+  /* inset top highlight reads as a lit edge; deeper ambient drop below */
+  --shadow-1: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 1px 2px rgba(0, 0, 0, 0.55);
+  --shadow-2: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 32px -14px rgba(0, 0, 0, 0.78);
+  --shadow-pop: 0 26px 66px -18px rgba(0, 0, 0, 0.86);
+
+  color-scheme: dark;
+}

@@ -1,0 +1,288 @@
+---
+import { fieldRadio } from '../data/chatbot';
+---
+
+<div class="field-radio" data-field-radio>
+  <button
+    type="button"
+    class="fr-toggle"
+    data-fr-toggle
+    aria-expanded="false"
+    aria-controls="fr-panel"
+    aria-haspopup="dialog"
+  >
+    <span class="fr-toggle__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <path d="M5 13a8 8 0 0 1 8-8" opacity="0.5" />
+        <path d="M5 17a12 12 0 0 1 12-12" opacity="0.5" />
+        <rect x="3" y="13" width="14" height="7" rx="1.5" />
+        <circle cx="7" cy="16.5" r="1.4" fill="currentColor" stroke="none" />
+        <path d="M11 15.5h3M11 17.5h3" />
+      </svg>
+    </span>
+    <span class="fr-toggle__label">{fieldRadio.panelTitle}</span>
+  </button>
+
+  <section
+    id="fr-panel"
+    class="fr-panel"
+    data-fr-panel
+    role="dialog"
+    aria-label="Field radio — ask Soham"
+    hidden
+  >
+    <header class="fr-head">
+      <p class="fr-head__title">{fieldRadio.panelTitle}</p>
+      <button type="button" class="fr-close" data-fr-close aria-label="Close field radio">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </header>
+
+    <ul class="fr-log" data-fr-log role="log" aria-live="polite" aria-label="Conversation"></ul>
+
+    <div class="fr-suggest" data-fr-suggest hidden>
+      <div class="fr-suggest__row">
+        {fieldRadio.suggestedQuestions.map((q) => (
+          <button type="button" class="fr-chip" data-fr-q>{q}</button>
+        ))}
+      </div>
+    </div>
+
+    <form class="fr-form" data-fr-form>
+      <label class="sr-only" for="fr-input">Ask Soham a question</label>
+      <textarea
+        id="fr-input"
+        class="fr-input"
+        data-fr-input
+        rows="1"
+        maxlength={fieldRadio.maxChars}
+        placeholder={fieldRadio.placeholder}
+        autocomplete="off"
+      ></textarea>
+      <button type="submit" class="fr-send" data-fr-send aria-label="Send">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12l15-7-7 15-2.5-5.5L4 12z" />
+        </svg>
+      </button>
+    </form>
+    <p class="fr-note">Answers come from a model speaking as Soham. Verify anything that matters.</p>
+  </section>
+</div>
+
+<script>
+  import '../scripts/field-radio.ts';
+</script>
+
+<style>
+  /* only show when JS can drive it */
+  :global(html.no-js) .field-radio { display: none; }
+
+  .field-radio {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: var(--z-radio);
+    font-family: var(--font-body);
+  }
+
+  /* ---- toggle ---- */
+  .fr-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.6rem 1rem 0.6rem 0.7rem;
+    background: var(--c-ink);
+    color: var(--c-paper);
+    border-radius: var(--r-pill);
+    box-shadow: var(--shadow-2);
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  }
+  .fr-toggle:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+  .fr-toggle:active { transform: translateY(0); }
+  .fr-toggle__icon { display: inline-flex; color: var(--c-paper); }
+  .fr-toggle__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+  }
+  .is-open .fr-toggle { display: none; }
+
+  /* ---- panel ---- */
+  /* `.fr-panel` sets display:flex, which would override the UA [hidden] rule and
+     leave the panel always visible. Re-assert hiding for the hidden state so the
+     close button, Escape, and initial state work. */
+  .fr-panel[hidden] { display: none; }
+  .fr-panel {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: var(--z-radio-panel);
+    width: min(30rem, calc(100vw - 2rem));
+    /* height hugs the conversation; the max-height is the only cap */
+    max-height: min(42rem, calc(100dvh - 4rem));
+    display: flex;
+    flex-direction: column;
+    background: var(--c-paper);
+    border: 1px solid var(--c-line-2);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+    transform-origin: bottom right;
+    animation: fr-in var(--dur-2) var(--ease-out);
+  }
+  @keyframes fr-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .fr-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--c-line);
+    background: var(--c-paper-2);
+  }
+  .fr-head__title {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-ink);
+  }
+  .fr-close {
+    flex: none;
+    color: var(--c-ink-3);
+    padding: 0.25rem;
+    border-radius: var(--r-sm);
+    transition: color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
+  }
+  .fr-close:hover { color: var(--c-ink); background: var(--c-paper-edge); }
+
+  .fr-log {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    overscroll-behavior: contain;
+  }
+  /* Messages are created at runtime by field-radio.ts, so they never get
+     Astro's scoping attribute — these selectors must be :global. */
+  .fr-log :global(.fr-msg) { display: flex; flex-direction: column; gap: 0.25rem; max-width: 85%; }
+  .fr-log :global(.fr-msg--user) { align-self: flex-end; align-items: flex-end; }
+  .fr-log :global(.fr-msg__who) { font-size: var(--text-2xs); }
+  .fr-log :global(.fr-msg--user .fr-msg__who) { color: var(--c-blue-link); }
+  .fr-log :global(.fr-msg--assistant .fr-msg__who) { color: var(--c-ink-3); }
+  .fr-log :global(.fr-msg__body) {
+    font-size: var(--text-md);
+    line-height: 1.55;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--r-md);
+    border: 1px solid var(--c-line);
+    overflow-wrap: anywhere;
+  }
+  .fr-log :global(.fr-msg--assistant .fr-msg__body) { background: var(--c-paper-2); border-top-left-radius: var(--r-xs); }
+  .fr-log :global(.fr-msg--user .fr-msg__body) { background: var(--c-blue-wash); border: 1px solid color-mix(in srgb, var(--c-blue) 30%, transparent); border-top-right-radius: var(--r-xs); }
+
+  .fr-log :global(.fr-dots) { display: inline-flex; gap: 4px; padding: 0.3rem 0.1rem; }
+  .fr-log :global(.fr-dots i) { width: 6px; height: 6px; border-radius: 50%; background: var(--c-ink-3); animation: fr-bounce 1s var(--ease-in-out) infinite; }
+  .fr-log :global(.fr-dots i:nth-child(2)) { animation-delay: 0.15s; }
+  .fr-log :global(.fr-dots i:nth-child(3)) { animation-delay: 0.3s; }
+  @keyframes fr-bounce { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+  /* wraps on desktop so every prompt stays visible; one swipeable row on phones */
+  .fr-suggest { padding: 0 var(--space-4) var(--space-2); }
+  .fr-suggest__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .fr-chip {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--c-ink-2);
+    padding: 0.35rem 0.65rem;
+    border: 1px solid var(--c-line-2);
+    border-radius: var(--r-pill);
+    background: var(--c-paper);
+    white-space: nowrap;
+    transition: border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
+  }
+  .fr-chip:hover { border-color: var(--c-blue); color: var(--c-blue-link); background: var(--c-blue-wash); }
+
+  .fr-form {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--c-line);
+  }
+  .fr-input {
+    flex: 1;
+    resize: none;
+    border: 1px solid var(--c-line-2);
+    border-radius: var(--r-sm);
+    background: var(--c-paper-2);
+    padding: 0.5rem 0.6rem;
+    font-size: var(--text-md);
+    line-height: 1.4;
+    max-height: 132px;
+    transition: border-color var(--dur-1) var(--ease-out);
+  }
+  .fr-input:focus-visible { outline: none; border-color: var(--c-blue); box-shadow: 0 0 0 2px var(--c-blue-wash); }
+  .fr-send {
+    flex: none;
+    display: inline-grid; place-items: center;
+    width: 38px; height: 38px;
+    border-radius: var(--r-sm);
+    background: var(--c-fill-blue);
+    color: #fff;
+    transition: background var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+  }
+  .fr-send:hover { background: var(--c-fill-blue-2); }
+  .fr-send:active { transform: scale(0.95); }
+  .fr-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .fr-note {
+    padding: 0 var(--space-4) var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    color: var(--c-ink-3);
+    letter-spacing: 0.04em;
+  }
+
+  /* phones: full-width bottom sheet */
+  @media (max-width: 30rem) {
+    .fr-panel {
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 85dvh;
+      border-radius: var(--r-md) var(--r-md) 0 0;
+      border-inline: 0;
+      border-bottom: 0;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .fr-input { font-size: 16px; } /* >=16px stops iOS focus-zoom */
+    .fr-suggest__row {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .fr-suggest__row::-webkit-scrollbar { display: none; }
+    .fr-send { width: 44px; height: 44px; }
+    .fr-close { padding: 0.45rem; }
+    .fr-toggle { padding: 0.72rem 1.15rem; }
+  }
+</style>

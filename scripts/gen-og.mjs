@@ -40,7 +40,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <text x="90" y="130" font-family="Space Mono" font-size="24" letter-spacing="6" fill="${C.ink3}">MACHINE LEARNING ENGINEER</text>
 
   <text x="86" y="300" font-family="Newsreader" font-weight="600" font-size="118" letter-spacing="-2" fill="${C.ink}">Soham Shinde</text>
-  <text x="90" y="378" font-family="Newsreader" font-weight="600" font-size="40" fill="${C.ink2}">I teach robots to see. Mostly they do.</text>
+  <!-- keep in sync with profile.tagline in src/data/site.ts -->
+  <text x="90" y="378" font-family="Newsreader" font-weight="600" font-size="40" fill="${C.ink2}">I teach robots to see.</text>
   <text x="90" y="440" font-family="Space Mono" font-size="24" letter-spacing="1" fill="${C.blueInk}">machine learning · computer vision · robotics</text>
 
   <line x1="88" y1="520" x2="1112" y2="520" stroke="${C.line}" stroke-width="1"/>

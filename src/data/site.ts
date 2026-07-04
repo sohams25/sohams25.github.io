@@ -42,7 +42,7 @@ export const profile = {
   name: 'Soham Shinde',
   role: 'Machine Learning Engineer',
   roleLine: 'machine learning · computer vision · robotics',
-  tagline: 'I teach robots to see. Mostly they do.',
+  tagline: 'I teach robots to see.',
   statusNow:
     'At Clutterbot, building the perception pipelines that tell indoor robots where things are.',
   location: 'Bengaluru, India',
@@ -58,11 +58,11 @@ export const profile = {
 
 export const about = {
   para1:
-    "I'm a Machine Learning Engineer at Clutterbot. I build the pipelines that train and deploy our segmentation and detection models, the ones that let our indoor robots see and move, and I package those deliverables for the Autonomous Navigation team. Recently I moved our perception system onto the Qualcomm DragonWing QCS6490P chipset and NVIDIA IoT kits, pulling about 30% more edge inference speed out of a barebones Linux setup with GStreamer. The hardware move risked breaking how the robot tracks its target, so I designed and shipped a custom 6DOF pose-estimation proof-of-concept for locking and rebasing.",
+    "I'm a Machine Learning Engineer at Clutterbot. I build and ship the segmentation and detection models that let our indoor robots see and move. Since we put them on Qualcomm DragonWing and NVIDIA edge hardware, the same models run about 30% faster.",
   para2:
-    "Before Clutterbot I spent most of my time in research labs, pointing models at images and asking what they understood. At NTU I built and benchmarked a Video Vision Transformer for classroom activity recognition. It hit 88% test accuracy on a 927-clip EduNet subset and 72% on an independent 100-video set, and the saliency maps showed it watching the right things: raised hands, writing on the board. I also worked on gaze estimation to derive student-engagement measures. At TCS Research I wrapped Segment Anything in a PyQt5 GUI for AI-assisted annotation and automated the stitching of segmented regions into larger sub-scenes. At CSIR-CEERI I restored deteriorated Rajasthani murals with U-Net++, DeepLabV3+, and a few others, reaching SSIM 0.9812 on the inpainting pipeline. The same thread runs through all of it: computer vision, 3D modeling, applied ML, some HCI, and robotics.",
+    'Before Clutterbot I was in research labs, pointing models at images and asking what they understood: video transformers for classroom activity recognition at NTU, annotation tooling around Segment Anything at TCS Research, and restoration of deteriorated Rajasthani murals at CSIR-CEERI. The thread through all of it is computer vision, 3D modeling, applied ML, and robotics. The details are in the experience section below.',
   para3:
-    'I studied Electronics & Communication Engineering with a minor in Data Science at BITS Pilani Goa. There I wrote autonomous navigation for Project Kratos, our student-built Mars rover prototype. Off the keyboard I brew Blue Tokai in a French press, boulder, and trek in the Himalayas. Same loop as debugging: find the next hold, commit, sometimes fall.',
+    'I studied Electronics & Communication Engineering with a minor in Data Science at BITS Pilani Goa, and wrote autonomous navigation for Project Kratos, our student-built Mars rover. Off the keyboard I brew Blue Tokai in a French press, boulder, and trek in the Himalayas. Same loop as debugging: find the next hold, commit, sometimes fall.',
 } as const;
 
 export const sectionIntros = {
@@ -81,7 +81,7 @@ export const experience: Experience[] = [
     logo: '/images/ClutterBot_Logo.png',
     logoAlt: 'Clutterbot logo',
     summary:
-      'I build the pipelines that train and ship our segmentation and detection models for indoor navigation, and package them for the Autonomous Navigation team. I moved the perception stack onto the Qualcomm DragonWing QCS6490P and NVIDIA IoT kits, gaining about 30% edge inference speed on barebones Linux with GStreamer, and built a custom 6DOF pose-estimation proof-of-concept to keep target locking stable through the migration.',
+      'I build the pipelines that train and ship our segmentation and detection models for indoor navigation, and package them for the Autonomous Navigation team. Moving the perception stack onto the Qualcomm DragonWing QCS6490P and NVIDIA IoT kits bought us about 30% more edge inference speed on barebones Linux with GStreamer. To keep target locking stable through that migration, I built a custom 6DOF pose-estimation proof of concept.',
     tags: ['edge inference', 'perception', '6DOF pose', 'GStreamer'],
   },
   {
@@ -92,7 +92,7 @@ export const experience: Experience[] = [
     logo: '/images/NTU.png',
     logoAlt: 'Nanyang Technological University logo',
     summary:
-      'Built and benchmarked a Video Vision Transformer (ViViT) for classroom activity recognition: 88% test accuracy on a 927-clip EduNet subset, 72% on an independent 100-video set, with gradient saliency maps confirming the model watched raised hands and board writing. Worked on gaze estimation to derive student-engagement measures, with Dr. Yuvaraj and Dr. Amalin.',
+      'Built and benchmarked a Video Vision Transformer (ViViT) for classroom activity recognition: 88% test accuracy on a 927-clip EduNet subset, 72% on an independent 100-video set. Saliency maps confirmed the model watched the right things, raised hands and writing on the board. With Dr. Yuvaraj and Dr. Amalin, I also worked on gaze estimation for student-engagement measures.',
     tags: ['ViViT', 'gaze estimation', 'video', 'HCI'],
   },
   {
@@ -103,7 +103,7 @@ export const experience: Experience[] = [
     logo: '/images/TCSR_Logo.png',
     logoAlt: 'TCS Research logo',
     summary:
-      'Wrapped Segment Anything (SAM) in a PyQt5 GUI for AI-assisted image annotation, and automated stitching of individually segmented regions into larger sub-scenes for semantic scene understanding.',
+      'Wrapped Segment Anything (SAM) in a PyQt5 GUI for AI-assisted image annotation. Automated the stitching of segmented regions into larger sub-scenes for semantic scene understanding.',
     tags: ['SAM', 'PyQt5', 'segmentation', 'tooling'],
   },
   {

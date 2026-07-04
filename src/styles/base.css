@@ -22,6 +22,12 @@ html {
 body {
   min-height: 100dvh;
   background-color: var(--c-paper);
+  /* paper grain + a fine chevron twill (both tiled SVG with opacity baked
+     in) under a single soft tonal lift at the top — all three live behind
+     every element, never over text */
+  background-image: var(--tex-grain), var(--tex-chevron), var(--bg-tone);
+  background-repeat: repeat, repeat, no-repeat;
+  background-size: 240px 240px, 28px 18px, 100% 100%;
   color: var(--c-ink);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -72,11 +78,14 @@ a {
   text-underline-offset: 0.16em;
   text-decoration-color: color-mix(in srgb, var(--c-blue-link) 38%, transparent);
   transition: color var(--dur-1) var(--ease-out),
-              text-decoration-color var(--dur-1) var(--ease-out);
+              text-decoration-color var(--dur-1) var(--ease-out),
+              text-underline-offset var(--dur-2) var(--ease-out);
 }
 a:hover {
   color: var(--c-blue);
   text-decoration-color: var(--c-blue);
+  /* underline settles slightly lower on hover */
+  text-underline-offset: 0.24em;
 }
 
 /* ---- shared primitives ---- */
@@ -109,7 +118,15 @@ a:hover {
 .rule {
   border: 0;
   border-top: var(--rule-w) solid var(--c-line);
+  border-image: var(--hairline-fade) 1;
   width: 100%;
+}
+
+/* quiet section boundaries: a hairline that fades out at both ends
+   instead of a bare full-bleed 1px rule */
+main > .section + .section {
+  border-top: var(--rule-w) solid transparent;
+  border-image: var(--hairline-fade) 1;
 }
 
 .section {

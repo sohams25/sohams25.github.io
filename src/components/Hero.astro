@@ -48,7 +48,8 @@ import { profile } from '../data/site';
   .hero {
     padding-top: clamp(2.5rem, 1.5rem + 5vw, 5rem);
     padding-bottom: var(--space-section);
-    border-bottom: 1px solid var(--c-line);
+    border-bottom: 1px solid transparent;
+    border-image: var(--hairline-fade) 1;
   }
   .hero__grid {
     display: grid;
@@ -113,6 +114,7 @@ import { profile } from '../data/site';
     border: 1px solid var(--c-line-2);
     border-radius: var(--r-md);
     box-shadow: var(--shadow-2);
+    transition: transform var(--dur-2) var(--ease-out);
   }
   .hero__frame img {
     width: 100%;
@@ -150,3 +152,36 @@ import { profile } from '../data/site';
     .hero__eyebrow, .hero__name, .hero__tagline, .hero__role, .hero__actions, .hero__plate { animation: none; }
   }
 </style>
+
+<script>
+  // The photo drifts a few pixels against the pointer. Mouse/pen only (a
+  // hybrid laptop passes pointer:fine, so gate per event too), transform-only,
+  // and reduced-motion is re-checked per move in case it flips after load.
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const frame = document.querySelector<HTMLElement>('.hero__frame');
+  const fine = window.matchMedia('(pointer: fine)');
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (hero && frame && fine.matches) {
+    let raf = 0;
+    let px = 0;
+    let py = 0;
+    hero.addEventListener('pointermove', (e: PointerEvent) => {
+      if (e.pointerType === 'touch' || still.matches) return;
+      px = e.clientX;
+      py = e.clientY;
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const r = hero.getBoundingClientRect();
+        const x = (px - r.left) / r.width - 0.5;
+        const y = (py - r.top) / r.height - 0.5;
+        frame.style.transform = `translate(${(x * -6).toFixed(2)}px, ${(y * -5).toFixed(2)}px) rotate(${(x * 0.4).toFixed(3)}deg)`;
+      });
+    });
+    hero.addEventListener('pointerleave', () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      frame.style.transform = '';
+    });
+  }
+</script>
